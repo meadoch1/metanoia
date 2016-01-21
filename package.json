@@ -43,6 +43,7 @@
     "node-libs-browser": "^0.5.3",
     "node-sass": "^3.4.2",
     "react-dom": "^0.14.6",
+    "react-tools": "^0.13.3",
     "redux-devtools": "^3.0.1",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",

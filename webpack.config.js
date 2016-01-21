@@ -63,7 +63,6 @@ module.exports = {
           'css' + '!sass?outputStyle=expanded&' + stylePathResolves
         )
       }
-
     ]
   },
 

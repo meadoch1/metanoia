@@ -6,7 +6,7 @@ export default class MentorGroupMaster extends Component {
     return (
       <div className="panel panel-default" >
         <div className="panel-heading">
-          <h4 className="panel-title"><strong>{this.props.name} ({this.props.assignments.length})  </strong>
+          <h4 className="panel-title group-title"><strong>{this.props.name} ({this.props.assignments.length})  </strong>
             <small>{this.props.title}</small>
             <div className='pull-right'><i className="fa fa-edit" ></i></div>
           </h4>

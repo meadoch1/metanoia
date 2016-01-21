@@ -48,4 +48,4 @@ function select(state) {
 function mapStateToProps(state) {
   return state.toJS();
 }
-export default connect(mapStateToProps)(Mentoring)
+export const MentoringContainer =  connect(mapStateToProps)(Mentoring);

@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 export default class MentorGroupSidebar extends Component {
   render() {
     return (
-      <div className="well">{this.props.title}</div>
+      <div className="well mentoring-sidebar">{this.props.title}</div>
     )
   }
 }

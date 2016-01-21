@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 export default class MentorGroupDetail extends Component {
   render() {
     return (
-      <tr data-assignment-id={this.props.assignment_id} >
+      <tr className='group-detail-row' data-assignment-id={this.props.assignment_id} >
         <td >{this.props.mentor_name}</td>
         <td >{this.props.mentee_name}</td>
         <td>{this.props.facility_ref_cd}</td>
