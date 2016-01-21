@@ -32,6 +32,6 @@ defmodule Metanoia.ClientVolunteerAssignment do
     join: g in Metanoia.MentorGroup, on: mga.mentor_group_id == g.id,
     join: c in Metanoia.Client, on: q.client_id == c.id,
     join: cp in Metanoia.Person, on: c.person_id == cp.id,
-    select: %{id: q.id, group_name: g.name, group_id: g.id, mentor_first_name: vp.first_name, mentor_last_name: vp.last_name, mentee_first_name: cp.first_name, mentee_last_name: cp.last_name, facility_ref_cd: c.facility_ref_cd, comments: mga.comments}
+    select: %{id: q.id, group_name: g.name, group_id: g.id, mentor_id: v.id, mentor_first_name: vp.first_name, mentor_last_name: vp.last_name, mentee_id: c.id, mentee_first_name: cp.first_name, mentee_last_name: cp.last_name, facility_ref_cd: c.facility_ref_cd, comments: mga.comments}
   end
 end

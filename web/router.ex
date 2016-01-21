@@ -11,6 +11,7 @@ defmodule Metanoia.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+
   end
 
   scope "/", Metanoia do
@@ -19,8 +20,8 @@ defmodule Metanoia.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Metanoia do
-  #   pipe_through :api
-  # end
+  scope "/api", Metanoia do
+    pipe_through :api
+    resources "/mentoring", MentoringController, except: [:new, :edit]
+  end
 end
