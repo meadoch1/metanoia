@@ -25,6 +25,18 @@ defmodule Metanoia.Volunteer do
     |> cast(params, @required_fields, @optional_fields)
   end
 
+  def mentors(query) do
+    from q in query,
+    join: a in Metanoia.VolunteerProgramAssignment, on: a.volunteer_id == q.id and a.program_id == 1,
+    preload: [
+      person: [ address: [:address_type, :state] ],
+      volunteer_status: [],
+      relationship_preference: [],
+      assignments: [client: [person: [ address: [:address_type, :state] ]], program: []]
+    ],
+    select: q
+  end
+
   def search_info(query) do
     from q in query,
     join: p in Metanoia.Person, on: q.person_id == p.id,

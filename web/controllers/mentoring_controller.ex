@@ -7,6 +7,13 @@ defmodule Metanoia.MentoringController do
   plug :scrub_params, "mentoring" when action in [:create, :update]
 
   def index(conn, _params) do
+    mentors = Metanoia.Volunteer
+      # |> Metanoia.Volunteer.mentors
+      |> Metanoia.Volunteer.include_all_info
+      |> Repo.all
+    clients = Metanoia.Client
+      |> Metanoia.Client.include_all_info
+      |> Repo.all
     mentoring = ClientVolunteerAssignment
       |> ClientVolunteerAssignment.mentoring_info
       |> Repo.all
@@ -14,7 +21,7 @@ defmodule Metanoia.MentoringController do
       |> MentorGroup.display_info
       |> Repo.all
 
-    render(conn, "index.json", mentoring: mentoring, groups: groups)
+    render(conn, "index.json", mentoring: mentoring, groups: groups, mentors: mentors, clients: clients)
   end
 
 end
