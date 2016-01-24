@@ -20,5 +20,7 @@ defmodule Metanoia.VolunteerProgramAssignment do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> foreign_key_constraint(:volunteer_id)
+    |> foreign_key_constraint(:program_id)
   end
 end

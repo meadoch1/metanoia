@@ -2,8 +2,16 @@ defmodule Metanoia.VolunteerProgramAssignmentControllerTest do
   use Metanoia.ConnCase
 
   alias Metanoia.VolunteerProgramAssignment
-  @valid_attrs %{}
+  @valid_attrs %{ volunteer_id: 1,  program_id: 1 }
   @invalid_attrs %{}
+
+  def valid_attrs_with_fks do
+    vol = Repo.insert! %Metanoia.Volunteer{}
+    program = Repo.insert! %Metanoia.Program{}
+    @valid_attrs
+    |> Map.put(:volunteer_id, vol.id)
+    |> Map.put(:program_id, program.id)
+  end
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -29,9 +37,10 @@ defmodule Metanoia.VolunteerProgramAssignmentControllerTest do
   end
 
   test "creates and renders resource when data is valid", %{conn: conn} do
-    conn = post conn, volunteer_program_assignment_path(conn, :create), volunteer_program_assignment: @valid_attrs
+    attrs = valid_attrs_with_fks
+    conn = post conn, volunteer_program_assignment_path(conn, :create), volunteer_program_assignment: attrs
     assert json_response(conn, 201)["data"]["id"]
-    assert Repo.get_by(VolunteerProgramAssignment, @valid_attrs)
+    assert Repo.get_by(VolunteerProgramAssignment, attrs)
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
@@ -40,10 +49,11 @@ defmodule Metanoia.VolunteerProgramAssignmentControllerTest do
   end
 
   test "updates and renders chosen resource when data is valid", %{conn: conn} do
+    attrs = valid_attrs_with_fks
     volunteer_program_assignment = Repo.insert! %VolunteerProgramAssignment{}
-    conn = put conn, volunteer_program_assignment_path(conn, :update, volunteer_program_assignment), volunteer_program_assignment: @valid_attrs
+    conn = put conn, volunteer_program_assignment_path(conn, :update, volunteer_program_assignment), volunteer_program_assignment: attrs
     assert json_response(conn, 200)["data"]["id"]
-    assert Repo.get_by(VolunteerProgramAssignment, @valid_attrs)
+    assert Repo.get_by(VolunteerProgramAssignment, attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do

@@ -10,8 +10,8 @@ defmodule Metanoia.ClientVolunteerAssignment do
     timestamps
   end
 
-  @required_fields ~w()
-  @optional_fields ~w()
+  @required_fields ~w(program_id volunteer_id)
+  @optional_fields ~w(start_month client_id)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -22,6 +22,9 @@ defmodule Metanoia.ClientVolunteerAssignment do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> foreign_key_constraint(:volunteer_id)
+    |> foreign_key_constraint(:program_id)
+    |> foreign_key_constraint(:client_id)
   end
 
   def mentoring_info(query) do

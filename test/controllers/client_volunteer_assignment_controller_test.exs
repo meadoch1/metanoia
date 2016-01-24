@@ -1,9 +1,18 @@
+require IEx
 defmodule Metanoia.ClientVolunteerAssignmentControllerTest do
   use Metanoia.ConnCase
 
   alias Metanoia.ClientVolunteerAssignment
-  @valid_attrs %{}
-  @invalid_attrs %{}
+  @valid_attrs %{ program_id: 1, volunteer_id: 1}
+  @invalid_attrs %{start_month: 'abc'}
+
+  def valid_attrs_with_fks do
+    vol = Repo.insert! %Metanoia.Volunteer{}
+    program = Repo.insert! %Metanoia.Program{}
+    @valid_attrs
+    |> Map.put(:volunteer_id, vol.id)
+    |> Map.put(:program_id, program.id)
+  end
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -30,9 +39,10 @@ defmodule Metanoia.ClientVolunteerAssignmentControllerTest do
   end
 
   test "creates and renders resource when data is valid", %{conn: conn} do
-    conn = post conn, client_volunteer_assignment_path(conn, :create), client_volunteer_assignment: @valid_attrs
+    attrs = valid_attrs_with_fks
+    conn = post conn, client_volunteer_assignment_path(conn, :create), client_volunteer_assignment: attrs
     assert json_response(conn, 201)["data"]["id"]
-    assert Repo.get_by(ClientVolunteerAssignment, @valid_attrs)
+    assert Repo.get_by(ClientVolunteerAssignment, attrs)
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
@@ -41,10 +51,11 @@ defmodule Metanoia.ClientVolunteerAssignmentControllerTest do
   end
 
   test "updates and renders chosen resource when data is valid", %{conn: conn} do
+    attrs = valid_attrs_with_fks
     client_volunteer_assignment = Repo.insert! %ClientVolunteerAssignment{}
-    conn = put conn, client_volunteer_assignment_path(conn, :update, client_volunteer_assignment), client_volunteer_assignment: @valid_attrs
+    conn = put conn, client_volunteer_assignment_path(conn, :update, client_volunteer_assignment), client_volunteer_assignment: attrs
     assert json_response(conn, 200)["data"]["id"]
-    assert Repo.get_by(ClientVolunteerAssignment, @valid_attrs)
+    assert Repo.get_by(ClientVolunteerAssignment, attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
