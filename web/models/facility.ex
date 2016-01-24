@@ -11,6 +11,7 @@ defmodule Metanoia.Facility do
     belongs_to :jurisdiction, Metanoia.Jurisdiction
     belongs_to :security_level, Metanoia.SecurityLevel
     belongs_to :pop_gender, Metanoia.PopGender
+    belongs_to :resident_address, Metanoia.ResidentAddress
 
     timestamps
   end

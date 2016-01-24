@@ -3,6 +3,7 @@ defmodule Metanoia.Volunteer do
 
   schema "volunteers" do
     field :mna_second_career, :boolean, default: false
+    field :note, :string
     belongs_to :person, Metanoia.Person
     belongs_to :volunteer_status, Metanoia.VolunteerStatus
     belongs_to :relationship_preference, Metanoia.RelationshipPreference
@@ -12,7 +13,7 @@ defmodule Metanoia.Volunteer do
   end
 
   @required_fields ~w(mna_second_career)
-  @optional_fields ~w()
+  @optional_fields ~w(note)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

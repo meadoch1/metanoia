@@ -5,7 +5,7 @@ defmodule Metanoia.StudentLesson do
     field :sent_dt, Ecto.Date
     field :received_dt, Ecto.Date
     field :grade, :float
-    belongs_to :student, Metanoia.Student
+    belongs_to :student, Metanoia.Client
     belongs_to :lesson, Metanoia.Lesson
 
     timestamps
@@ -23,5 +23,7 @@ defmodule Metanoia.StudentLesson do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> foreign_key_constraint(:student_id)
+    |> foreign_key_constraint(:lesson_id)
   end
 end

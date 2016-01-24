@@ -5,23 +5,24 @@ defmodule Metanoia.Person do
     field :first_name, :string
     field :last_name, :string
     field :middle_name, :string
-    field :nickname, :string
-    field :suffix, :string
     field :phone, :string
     field :mobile_phone, :string
-    field :work_phone, :string
     field :email, :string
-    field :email2, :string
-    field :spouse_name, :string
     field :dob, Ecto.Date
+    field :work_phone, :string
+    field :spouse_name, :string
+    field :email2, :string
+    field :nickname, :string
+    field :suffix, :string
     belongs_to :address, Metanoia.Address
     belongs_to :church, Metanoia.Church
+    belongs_to :pastor, Metanoia.Pastor
 
     timestamps
   end
 
-  @required_fields ~w(first_name last_name middle_name phone mobile_phone email dob)
-  @optional_fields ~w(spouse_name email2 work_phone)
+  @required_fields ~w(first_name last_name middle_name phone mobile_phone email dob work_phone spouse_name email2 nickname suffix)
+  @optional_fields ~w()
 
   @doc """
   Creates a changeset based on the `model` and `params`.
