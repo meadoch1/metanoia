@@ -1,5 +1,6 @@
 defmodule Metanoia.PersonView do
   use Metanoia.Web, :view
+  use Metanoia.RelationRender
 
   def render("index.json", %{persons: persons}) do
     %{data: render_many(persons, Metanoia.PersonView, "person.json")}
@@ -27,14 +28,15 @@ defmodule Metanoia.PersonView do
       email2: person.email2,
       nickname: person.nickname,
       suffix: person.suffix}
-    |> Map.put(:address, render_one( person.address, Metanoia.AddressView, "address.json"))
+    |> render_relation( :address, person.address, Metanoia.AddressView, "address.json")
   end
 
-  def render_address(map, nil) do
-    map
-  end
+  # def render_address(map, %Ecto.Association.NotLoaded{}) do
+  #   map
+  # end
 
-  def render_address(map, address) do
-    Map.put(map, :address, render_one(address, Metanoia.AddressView, "address.json"))
-  end
+  # def render_address(map, address) do
+  #   Map.put(map, :address, render_one(address, Metanoia.AddressView, "address.json"))
+  # end
+
 end

@@ -3,7 +3,7 @@ defmodule Metanoia.MentorGroupAssignmentControllerTest do
 
   alias Metanoia.MentorGroupAssignment
   @valid_attrs %{comments: "some content", start_month: "2010-04-17"}
-  @invalid_attrs %{}
+  @invalid_attrs %{comments: 1}
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}

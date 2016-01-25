@@ -3,7 +3,7 @@ defmodule Metanoia.ClientVolunteerAssignmentTest do
 
   alias Metanoia.ClientVolunteerAssignment
 
-  @valid_attrs %{}
+  @valid_attrs %{program_id: 1, volunteer_id: 1}
   @invalid_attrs %{start_month: 'abc'}
 
   test "changeset with valid attributes" do

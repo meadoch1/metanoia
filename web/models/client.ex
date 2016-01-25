@@ -21,7 +21,7 @@ defmodule Metanoia.Client do
   end
 
   @required_fields ~w(facility_ref_cd earliest_out_dt note)
-  @optional_fields ~w()
+  @optional_fields ~w(facility_address_text grader_address_text max_possible_release_dt tentative_parole_month)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
