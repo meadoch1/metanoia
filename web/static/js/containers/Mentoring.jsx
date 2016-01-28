@@ -2,8 +2,16 @@ import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux'
 import MentorGroupMaster from '../components/MentorGroupMaster'
 import MentorGroupSidebar from '../components/MentorGroupSidebar'
+import {fetchState} from '../actions'
+import {List} from 'immutable';
 
 export class Mentoring extends React.Component {
+  componentDidMount() {
+    console.log("calling fetchState");
+    const { dispatch } = this.props;
+    dispatch(fetchState());
+  }
+
   render() {
     return (
       <div className="row">
@@ -46,6 +54,9 @@ function select(state) {
   return state
 }
 function mapStateToProps(state) {
-  return state.toJS();
+  return {
+    groupSidebar: { title: 'test'},
+    groups: state.get('groups', List()).toJS()
+  };
 }
 export const MentoringContainer =  connect(mapStateToProps)(Mentoring);

@@ -3,10 +3,10 @@ defmodule Metanoia.MentoringView do
 
   def render("index.json", %{mentoring: mentoring, groups: groups, mentors: mentors, clients: clients}) do
     %{data: %{
-               # mentoring: render_many_with_query(mentoring),
+               mentoring: render_many_with_query(mentoring),
                # groups: render_many_with_query(groups),
-                mentors: render_many(mentors, Metanoia.VolunteerView, "mentor.json"),
-               # clients: render_many_with_query(clients)
+               # mentors: render_many(mentors, Metanoia.VolunteerView, "volunteer.json"),
+               # clients: render_many(clients, Metanoia.ClientView, "client.json")
              }}
   end
 
