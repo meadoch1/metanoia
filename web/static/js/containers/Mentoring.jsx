@@ -5,6 +5,7 @@ import MentorGroupSidebar from '../components/MentorGroupSidebar'
 import {fetchState} from '../actions'
 import {List} from 'immutable';
 
+
 export class Mentoring extends React.Component {
   componentDidMount() {
     console.log("calling fetchState");
@@ -53,10 +54,42 @@ function select(state) {
   console.log("State: " + state);
   return state
 }
+
+function fullNameFromPerson(person) {
+  return person.get("first_name") + " " + person.get("last_name")
+}
+
+function mapGroupsFromState(state) {
+  console.log("in mapGroupsFromState");
+  var group_ids = state.getIn(["result", "mentor_groups"], new List());
+  var groups =  group_ids.map( function(group_id){
+    console.log("group_id: " + group_id);
+    var group = state.getIn(["entities", "mentor_groups"], new Map()).get(group_id.toString());
+    console.log("group: " + group);
+    return {
+      id: group.get('id'),
+      name: group.get('name'),
+      title: group.get('name'),
+      assignments: group.get('mentor_group_assignments', List()).map( function(assignment){
+        return {
+          id: assignment.get('id'),
+          mentor_name: fullNameFromPerson(assignment.getIn(["volunteer","person"], new Map())),
+          mentee_name: fullNameFromPerson(assignment.getIn(["client", "person"], new Map())),
+          facility_ref_cd: assignment.getIn(["client","facility_ref_cd"]),
+          comments: assignment.get("comments")
+        }
+      })
+    }
+  });
+  return groups.toJS();
+}
+
 function mapStateToProps(state) {
+  console.log("in mapStateToProps");
+  var groups = mapGroupsFromState(state);
   return {
     groupSidebar: { title: 'test'},
-    groups: state.get('groups', List()).toJS()
+    groups: groups
   };
 }
 export const MentoringContainer =  connect(mapStateToProps)(Mentoring);

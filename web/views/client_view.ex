@@ -1,5 +1,6 @@
 defmodule Metanoia.ClientView do
   use Metanoia.Web, :view
+  use Metanoia.RelationRender
 
   def render("index.json", %{clients: clients}) do
     %{data: render_many(clients, Metanoia.ClientView, "client.json")}
@@ -22,5 +23,6 @@ defmodule Metanoia.ClientView do
       parole_status_id: client.parole_status_id,
       tentative_parole_month: client.tentative_parole_month,
       max_possible_release_dt: client.max_possible_release_dt}
+    |> render_relation( :person, client.person, Metanoia.PersonView, "person.json")
   end
 end

@@ -27,6 +27,27 @@ defmodule Metanoia.ClientVolunteerAssignment do
     |> foreign_key_constraint(:client_id)
   end
 
+  def include_all_info(query) do
+    from q in query,
+    preload: [
+      client: [
+        person: [ address: [:address_type, :state] ],
+        facility: [ address: [:address_type, :state] ],
+        client_status: [],
+        student_lessons: [lesson: [:course] ],
+        assignments: [volunteer: [person: [ address: [:address_type, :state] ]], program: []]
+      ],
+      volunteer: [
+        person: [ address: [:address_type, :state] ],
+        volunteer_status: [],
+        relationship_preference: [],
+        assignments: [client: [person: [ address: [:address_type, :state] ]], program: []]
+      ],
+      program: [],
+    ],
+    select: q
+  end
+
   def mentoring_info(query) do
     from q in query,
     join: v in Metanoia.Volunteer, on: q.volunteer_id == v.id,

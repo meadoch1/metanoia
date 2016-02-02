@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import {fromJS} from 'immutable';
+import { normalize, Schema, arrayOf } from 'normalizr';
 
 /* action types */
 export const CREATE_MENTOR_GROUP_REPORT = 'CREATE_MENTOR_GROUP_REPORT';
@@ -23,7 +24,6 @@ export const ViewStates = {
 /* action creators */
 
 export function setState(state) {
-  console.log("New state: " + state);
   return { type: SET_STATE, state: state}
 }
 
@@ -49,22 +49,65 @@ export function editMentorRelationship(id) {
 
 export function fetchState() {
   return dispatch => {
-    dispatch(requestState())
-    return $.ajax({
-      method: "GET",
-      url: "api/mentoring",
-      dataType: "json"
-    }).success( function(data){
-      dispatch(setState(mapToState(data.data)));
-    });
-    // return fetch(`api/mentoring`)
-    //   .then(req => logJson(req))
-    //   .then(json => dispatch(setState(json)))
+    dispatch(requestState());
+    return fetch(`api/mentoring`)
+      .then(req => req.json())
+      .then(json => dispatch(setState(mapToState(json))))
   }
 }
 
-function mapToState(json) {
-  groups = json.groups;
-  mentoring = json.mentoring;
-  //iterate through the data and build up State 
+const volunteer = new Schema('volunteers');
+const client = new Schema('clients');
+const person  = new Schema('persons');
+const address = new Schema('addresses');
+const address_type = new Schema('address_types');
+const state = new Schema('states');
+const group_assignment = new Schema('group_assignments');
+const mentor_group = new Schema('mentor_groups');
+const facility = new Schema('facilities');
+const schedule = new Schema('schedules');
+
+schedule.define({
+  mentor_group: mentor_group
+});
+
+client.define({
+  person: person
+});
+
+person.define({
+  address: address
+});
+
+address.define({
+  address_type: address_type,
+  state: state
+})
+
+group_assignment.define({
+  mentor_group: mentor_group,
+  volunteer: volunteer,
+  client: client
+});
+
+mentor_group.define({
+  facility: facility,
+  leader: volunteer,
+  assignments: arrayOf(group_assignment)
+});
+
+volunteer.define({
+  person: person
+});
+
+export function mapToState(json) {
+  return fromJS(
+    normalize(json,
+              {
+                clients: arrayOf(client),
+                group_assignments: arrayOf(group_assignment),
+                mentor_groups: arrayOf(mentor_group),
+                schedules: arrayOf(schedule),
+                volunteers: arrayOf(volunteer)
+              }));
 }

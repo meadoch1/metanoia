@@ -3,8 +3,10 @@ defmodule Metanoia.MentorGroup do
 
   schema "mentor_groups" do
     field :name, :string
-    belongs_to :leader, Metanoia.Leader
+    belongs_to :leader, Metanoia.Volunteer
     belongs_to :facility, Metanoia.Facility
+    has_many :mentor_group_assignments, Metanoia.MentorGroupAssignment
+    has_many :schedule_entries, Metanoia.ScheduleEntry
 
     timestamps
   end
@@ -25,10 +27,24 @@ defmodule Metanoia.MentorGroup do
     |> foreign_key_constraint(:leader_id)
   end
 
+  def include_all_info(query) do
+    from q in query,
+    preload: [
+      facility: [],
+      schedule_entries: [],
+      mentor_group_assignments: [
+        volunteer: [person: [ address: [:address_type, :state] ]],
+        client: [person: [ address: [:address_type, :state] ]],
+        program: []
+        ]
+    ],
+    select: q
+  end
+
   def display_info(query) do
     from q in query,
     join: s in Metanoia.ScheduleEntry, on: s.mentor_group_id == q.id,
-    select: %{id: q.id, name: q.name, meeting_day_of_week: s.day_of_week, meeting_week_of_month: s.week_of_month}
+    select: %{id: q.id, name: q.name, leader_id: q.leader_id, facility_id: q.facility_id, meeting_day_of_week: s.day_of_week, meeting_week_of_month: s.week_of_month}
   end
 
   def next_date_of_meeting(meeting_days) do

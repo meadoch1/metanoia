@@ -13,6 +13,18 @@ defmodule Metanoia.RelationRender do
       def render_relation(map, key, relation, view, name) do
         Map.put(map, key, render_one(relation, view, name))
       end
+
+      def render_relations(map, _key, %Ecto.Association.NotLoaded{}, _view, _name) do
+        map
+      end
+
+      def render_relations(map, _key, nil, _view, _name) do
+        map
+      end
+
+      def render_relations(map, key, relation, view, name) do
+        Map.put(map, key, render_many(relation, view, name))
+      end
     end
   end
 end

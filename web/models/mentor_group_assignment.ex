@@ -6,12 +6,14 @@ defmodule Metanoia.MentorGroupAssignment do
     field :start_month, Ecto.Date
     belongs_to :mentor_group, Metanoia.MentorGroup
     belongs_to :volunteer, Metanoia.Volunteer
+    belongs_to :client, Metanoia.Client
+    belongs_to :program, Metanoia.Program
 
     timestamps
   end
 
-  @required_fields ~w()
-  @optional_fields ~w(comments start_month)
+  @required_fields ~w(mentor_group_id volunteer_id)
+  @optional_fields ~w(comments start_month client_id program_id)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
