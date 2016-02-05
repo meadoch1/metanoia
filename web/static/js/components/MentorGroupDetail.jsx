@@ -15,7 +15,7 @@ export default class MentorGroupDetail extends Component {
 
 MentorGroupDetail.propTypes = {
   mentor_name: PropTypes.string.isRequired,
-  mentee_name: PropTypes.string.isRequired,
-  facility_ref_cd: PropTypes.string.isRequired,
-  comments: PropTypes.string.isRequired
+  mentee_name: PropTypes.string,
+  facility_ref_cd: PropTypes.string,
+  comments: PropTypes.string
 }

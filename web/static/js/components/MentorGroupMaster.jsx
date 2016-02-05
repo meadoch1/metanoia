@@ -40,8 +40,8 @@ MentorGroupMaster.propTypes = {
   assignments: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     mentor_name: PropTypes.string.isRequired,
-    mentee_name: PropTypes.string.isRequired,
-    facility_ref_cd: PropTypes.string.isRequired,
-    comments: PropTypes.string.isRequired
+    mentee_name: PropTypes.string,
+    facility_ref_cd: PropTypes.string,
+    comments: PropTypes.string
   }).isRequired).isRequired
 }

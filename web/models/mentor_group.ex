@@ -29,7 +29,6 @@ defmodule Metanoia.MentorGroup do
 
   def include_all_info(query) do
     from q in query,
-    where: q.id == 7,
     preload: [
       facility: [],
       schedule_entries: [],
