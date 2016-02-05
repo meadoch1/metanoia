@@ -1,7 +1,7 @@
 import React from 'react/addons';
 import {expect} from 'chai';
-import {Mentoring }from '../../../web/static/js/containers/Mentoring';
-import {initialState} from '../../../web/static/js/reducers';
+import {Mentoring, mapStateToProps }from '../../../web/static/js/containers/Mentoring';
+import {initialState} from '../../../web/static/js/util/initialState';
 
 const {renderIntoDocument,
        scryRenderedDOMComponentsWithClass,
@@ -9,27 +9,28 @@ const {renderIntoDocument,
 
 describe('Mentoring', () => {
   it('renders groups', () => {
+    var props = mapStateToProps(initialState);
     const component = renderIntoDocument(
-      <Mentoring groupSidebar={initialState.get('groupSidebar').toJS()} groups={initialState.get('groups').toJS()} />
+      <Mentoring groupSidebar={props.groupSidebar} groups={props.groups} />
     );
 
     const groups = scryRenderedDOMComponentsWithClass(component,'group-title' );
-    expect(groups.length).to.equal(2);
-    expect(groups[0].textContent).to.equal('Group 1 (2)  The first group');
-    expect(groups[1].textContent).to.equal('Group 2 (3)  The second group');
+    expect(groups.length).to.equal(1);
+    expect(groups[0].textContent).to.equal('Group 6 (2)  Group 6');
     const details = scryRenderedDOMComponentsWithClass(component, 'group-detail-row');
-    expect(details.length).to.equal(5);
-    expect(details[0].textContent).to.equal('George OneMentee One0001comments 1');
+    expect(details.length).to.equal(2);
+    expect(details[0].textContent).to.equal('Bill SmithBob Jones1111111111');
   });
 
   it('renders the sidebar', () => {
+    var props = mapStateToProps(initialState);
     const component = renderIntoDocument(
-      <Mentoring groupSidebar={initialState.get('groupSidebar').toJS()} groups={initialState.get('groups').toJS()} />
+      <Mentoring groupSidebar={props.groupSidebar} groups={props.groups} />
     );
 
     const sidebar = scryRenderedDOMComponentsWithClass(component,'mentoring-sidebar' );
     expect(sidebar.length).to.equal(1);
-    expect(sidebar[0].textContent).to.equal('Welcome');
+    expect(sidebar[0].textContent).to.equal('test');
   });
 
 

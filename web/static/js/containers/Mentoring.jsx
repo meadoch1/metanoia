@@ -10,7 +10,9 @@ export class Mentoring extends React.Component {
   componentDidMount() {
     console.log("calling fetchState");
     const { dispatch } = this.props;
-    dispatch(fetchState());
+    if (dispatch != undefined) {
+      dispatch(fetchState());
+    }
   }
 
   render() {
@@ -61,30 +63,32 @@ function fullNameFromPerson(person) {
 
 function mapGroupsFromState(state) {
   console.log("in mapGroupsFromState");
-  var group_ids = state.getIn(["result", "mentor_groups"], new List());
-  var groups =  group_ids.map( function(group_id){
-    console.log("group_id: " + group_id);
-    var group = state.getIn(["entities", "mentor_groups"], new Map()).get(group_id.toString());
-    console.log("group: " + group);
-    return {
-      id: group.get('id'),
-      name: group.get('name'),
-      title: group.get('name'),
-      assignments: group.get('mentor_group_assignments', List()).map( function(assignment){
-        return {
-          id: assignment.get('id'),
-          mentor_name: fullNameFromPerson(assignment.getIn(["volunteer","person"], new Map())),
-          mentee_name: fullNameFromPerson(assignment.getIn(["client", "person"], new Map())),
-          facility_ref_cd: assignment.getIn(["client","facility_ref_cd"]),
-          comments: assignment.get("comments")
-        }
-      })
-    }
-  });
-  return groups.toJS();
+  var group_map = state.getIn(["entities", "mentor_groups"], new Map([]));
+  if (group_map.size == 0) {
+    return [];
+  } else {
+    var groups = group_map.entrySeq().sortBy( pair => pair[1].get('name')).map( pair => {
+      var group = pair[1];
+      return {
+        id: group.get('id'),
+        name: group.get('name'),
+        title: group.get('name'),
+        assignments: group.get('mentor_group_assignments', List()).map( function(assignment){
+          return {
+            id: assignment.get('id'),
+            mentor_name: fullNameFromPerson(assignment.getIn(["volunteer","person"], new Map())),
+            mentee_name: fullNameFromPerson(assignment.getIn(["client", "person"], new Map())),
+            facility_ref_cd: assignment.getIn(["client","facility_ref_cd"]),
+            comments: assignment.get("comments")
+          }
+        }).toArray()
+      }
+    });
+    return groups.toJS();
+  }
 }
 
-function mapStateToProps(state) {
+export const mapStateToProps = function(state) {
   console.log("in mapStateToProps");
   var groups = mapGroupsFromState(state);
   return {
