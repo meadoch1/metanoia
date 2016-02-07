@@ -1,15 +1,22 @@
 import React from 'react';
-import {List, Map} from 'immutable';
+import {Link} from 'react-router';
 
-export default React.createClass({
-  componentDidMount: function() {
-    console.log("calling fetchState");
-    const { dispatch } = this.props;
-    dispatch(fetchState());
-  };
+export const App = React.createClass({
+  render() {
+    return (
+      <div>
+        <h1>App</h1>
+        {/* change the <a>s to <Link>s */}
+        <ul>
+          <li><Link to="/mentoring">Mentoring</Link></li>
+        </ul>
 
-  render: function() {
-    // return this.props.children; 
-    return <div className='btn btn-default'>Hello from React2</div>
+        {/*
+          next we replace `<Child>` with `this.props.children`
+          the router will figure out the children for us
+        */}
+        {this.props.children}
+      </div>
+    )
   }
-});
+})
