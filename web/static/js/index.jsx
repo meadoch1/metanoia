@@ -9,15 +9,17 @@ import { MentoringContainer } from './containers/Mentoring';
 import {setState} from './actions';
 import {initialState} from './reducers'
 import configureStore from './configureStore';
-import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
+import { Router, Route, Link, hashHistory, IndexRoute } from 'react-router';
 import { App } from './containers/App';
+
+require("font-awesome-webpack");
 
 let store = configureStore();
 //store.dispatch( setState( initialState));
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={hashHistory}>
       <Route path="/" component={App}>
         <IndexRoute compoonent={MentoringContainer} />
         <Route path="/mentoring" component={MentoringContainer} />

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import MentorGroupDetail from './MentorGroupDetail';
+import { Link } from 'react-router';
 
 export default class MentorGroupMaster extends Component {
   render() {
@@ -18,6 +19,7 @@ export default class MentorGroupMaster extends Component {
               <th>Mentee</th>
               <th>GCD ID</th>
               <th>Notes</th>
+              <th><Link to="email_group"><i className="fa fa-edit" ></i></Link></th>
             </tr>
           </thead>
           <tbody>
