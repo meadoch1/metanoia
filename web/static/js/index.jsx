@@ -12,7 +12,8 @@ import configureStore from './configureStore';
 import { Router, Route, Link, hashHistory, IndexRoute } from 'react-router';
 import { App } from './containers/App';
 
-require("font-awesome-webpack");
+require('bootstrap-webpack');
+require('font-awesome-webpack');
 
 let store = configureStore();
 //store.dispatch( setState( initialState));

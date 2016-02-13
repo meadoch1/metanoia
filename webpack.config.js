@@ -12,8 +12,14 @@ var plugins = [
     { from: './web/static/assets' },
     { from: './deps/phoenix_html/web/static/js/phoenix_html.js',
       to: 'js/phoenix_html.js' }
-  ])
-
+  ]),
+  new webpack.optimize.CommonsChunkPlugin({
+    name: "vendor", filename: "vendor.js"
+  }),
+  new webpack.ProvidePlugin({
+    $: 'jquery',
+    jQuery: 'jquery'
+  })
 ];
 
 // This is necessary to get the sass @import's working
@@ -28,10 +34,22 @@ if (isProduction) {
 }
 
 module.exports = {
-  entry: './web/static/js/index.jsx',
+  entry: {
+    vendor: ["jquery", "bootstrap-webpack", "font-awesome-webpack", "es6-promise",
+             "history",
+             "immutable",
+             "isomorphic-fetch",
+             // "less",
+             "normalizr",
+              "react", "react-redux", "react-router", "react-router-redux",
+             "redux", "redux-logger", "redux-thunk"
+            ],
+    app: './web/static/js/index.jsx'
+  },
 
   output: {
     path: './priv/static/js',
+    publicPath: '/js/',
     filename: 'app.js'
   },
 
@@ -40,8 +58,23 @@ module.exports = {
       phoenix: __dirname + '/deps/phoenix/web/static/js/phoenix.js'
     },
     extensions: [ '','.js','.jsx' ]
- },
-
+  },
+  scripts: {
+    // add every bootstrap script you need
+    'transition': true
+  },
+  styles: {
+    // add every bootstrap style you need
+    "mixins": true,
+    "normalize": true,
+    "print": true,
+    "scaffolding": true,
+    "type": true,
+    "core": true,
+    "icons": true,
+    "larger": true,
+    "path": true
+  },
   module: {
     loaders: [
       {
@@ -63,7 +96,7 @@ module.exports = {
           'css' + '!sass?outputStyle=expanded&' + stylePathResolves
         )
       },
-      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
     ]
   },

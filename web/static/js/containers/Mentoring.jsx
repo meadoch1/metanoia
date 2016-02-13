@@ -5,7 +5,6 @@ import MentorGroupSidebar from '../components/MentorGroupSidebar'
 import {fetchState} from '../actions'
 import {List} from 'immutable';
 
-
 export class Mentoring extends React.Component {
   componentDidMount() {
     console.log("calling fetchState");
