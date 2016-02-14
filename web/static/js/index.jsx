@@ -6,6 +6,8 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import {List, Map, fromJS} from 'immutable';
 import { MentoringContainer } from './containers/Mentoring';
+import EmptySidebar from './components/EmptySidebar';
+import {EmailGroupContainer} from './components/EmailGroup';
 import {setState} from './actions';
 import {initialState} from './reducers'
 import configureStore from './configureStore';
@@ -23,7 +25,10 @@ ReactDOM.render(
     <Router history={hashHistory}>
       <Route path="/" component={App}>
         <IndexRoute compoonent={MentoringContainer} />
-        <Route path="/mentoring" component={MentoringContainer} />
+        <Route path="/mentoring" component={MentoringContainer} >
+          <IndexRoute component={EmptySidebar} />
+          <Route path="email_group/:id" component={EmailGroupContainer} />
+        </Route>
       </Route>
     </Router>
   </Provider>,

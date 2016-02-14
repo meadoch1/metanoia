@@ -23,8 +23,7 @@ export class Mentoring extends React.Component {
            )}
         </div>
         <div className="col-sm-3">
-          <h4>Sidebar</h4>
-          <MentorGroupSidebar {...this.props.groupSidebar}  />
+          {this.props.children}
         </div>
       </div>
     )
