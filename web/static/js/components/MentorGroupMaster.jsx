@@ -9,7 +9,11 @@ export default class MentorGroupMaster extends Component {
         <div className="panel-heading">
           <h4 className="panel-title group-title"><strong>{this.props.name} ({this.props.assignments.length})  </strong>
             <small>{this.props.title}</small>
-            <div className='pull-right'><Link to={`/mentoring/email_group/${this.props.id}`}><i className="fa fa-edit" ></i></Link></div>
+            <div className='pull-right'>
+              <Link to={`/mentoring/email_group/${this.props.id}`}><i className="fa fa-envelope" ></i></Link>
+                &nbsp;
+              <Link to={`/mentoring/edit_group/${this.props.id}`}><i className="fa fa-edit" ></i></Link>
+            </div>
           </h4>
         </div>
         <table className="table table-hover table-condensed">

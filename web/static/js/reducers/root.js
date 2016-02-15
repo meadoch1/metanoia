@@ -4,7 +4,7 @@ import {
   CREATE_MENTOR_GROUP_REPORT, EDIT_MENTOR_GROUP,
   CREATE_MESSAGE_FOR_MENTOR_GROUP, EDIT_MENTOR_RELATIONSHIP, SET_STATE,
   ViewStates
-} from './actions';
+} from '../actions';
 const { HIDDEN } = ViewStates;
 
 

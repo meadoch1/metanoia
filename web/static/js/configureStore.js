@@ -1,15 +1,30 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import rootReducer from './reducers';
+import rootReducer from './reducers/root';
 import {fromJS} from 'immutable';
+import { syncHistory, routeReducer } from 'react-router-redux';
+import { Router, Route, Link, hashHistory, IndexRoute } from 'react-router';
+import {reducer as formReducer} from 'redux-form';
 
-const loggerMiddleware = createLogger()
+const loggerMiddleware = createLogger();
+const reduxRouterMiddleware = syncHistory(hashHistory);
+
+const reducer = combineReducers({
+  root: rootReducer,
+  routing: routeReducer,
+  form: formReducer
+});
 
 const createStoreWithMiddleware = applyMiddleware(
   thunkMiddleware,
-  loggerMiddleware
+  loggerMiddleware,
+  reduxRouterMiddleware
 )(createStore)
+
+const store = createStoreWithMiddleware(reducer);
+
+reduxRouterMiddleware.listenForReplays(store)
 
 const initialState = fromJS({
   entities: {
@@ -32,6 +47,6 @@ const initialState = fromJS({
   }
 });
 
-export default function configureStore(initialState) {
-  return createStoreWithMiddleware(rootReducer, initialState)
+export default function configureStore() {
+  return store;
 }
