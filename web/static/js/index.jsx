@@ -8,6 +8,7 @@ import {List, Map, fromJS} from 'immutable';
 import { MentoringContainer } from './containers/Mentoring';
 import EmptySidebar from './components/EmptySidebar';
 import {EmailGroupContainer} from './components/EmailGroup';
+import {MentorGroupEditContainer} from './components/MentorGroupEdit';
 import {setState} from './actions';
 import configureStore from './configureStore';
 import { Router, Route, Link, hashHistory, IndexRoute } from 'react-router';
@@ -27,6 +28,7 @@ ReactDOM.render(
         <Route path="/mentoring" component={MentoringContainer} >
           <IndexRoute component={EmptySidebar} />
           <Route path="email_group/:id" component={EmailGroupContainer} />
+          <Route path="edit_group/:id" component={MentorGroupEditContainer} />
         </Route>
       </Route>
     </Router>

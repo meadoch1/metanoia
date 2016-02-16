@@ -14,4 +14,5 @@ Object.keys(window).forEach((key) => {
   }
 });
 
+chai.config.includeStack = true;
 chai.use(chaiImmutable);

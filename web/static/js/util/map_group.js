@@ -41,6 +41,7 @@ export function mapGroupFromState(group) {
       return {
         id: assignment.get('id'),
         mentor_name: fullNameFromPerson(assignment.getIn(["volunteer","person"], new Map())),
+        mentor_id: assignment.getIn(["volunteer","person"], new Map()).get("id", ""),
         mentee_name: fullNameFromPerson(assignment.getIn(["client", "person"], new Map())),
         facility_ref_cd: assignment.getIn(["client","facility_ref_cd"]),
         comments: assignment.get("comments")
