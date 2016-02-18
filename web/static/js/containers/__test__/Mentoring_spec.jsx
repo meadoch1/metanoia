@@ -1,7 +1,7 @@
 import React from 'react/addons';
 import {expect} from 'chai';
-import {Mentoring, mapStateToProps }from '../../../web/static/js/containers/Mentoring';
-import {initialState} from '../../../web/static/js/util/initialState';
+import {Mentoring, mapStateToProps }from '../Mentoring';
+import {initialState} from '../../util/initialState';
 
 const {renderIntoDocument,
        scryRenderedDOMComponentsWithClass,

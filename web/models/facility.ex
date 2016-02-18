@@ -16,7 +16,7 @@ defmodule Metanoia.Facility do
     timestamps
   end
 
-  @required_fields ~w(name courier avg_daily_pop)
+  @required_fields ~w(name)
   @optional_fields ~w()
 
   @doc """

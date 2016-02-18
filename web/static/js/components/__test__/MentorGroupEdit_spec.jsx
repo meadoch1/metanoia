@@ -1,7 +1,7 @@
 import React from 'react/addons';
 import { expect} from 'chai';
 import chai from 'chai';
-import {MentorGroupEdit }from '../../../web/static/js/components/MentorGroupEdit';
+import {MentorGroupEdit }from '../MentorGroupEdit';
 
 const {renderIntoDocument,
        scryRenderedDOMComponentsWithClass,

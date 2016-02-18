@@ -14,8 +14,8 @@ defmodule Metanoia.Address do
     timestamps
   end
 
-  @required_fields ~w(line1 line2 city zip_code latitude longitude)
-  @optional_fields ~w()
+  @required_fields ~w(line1 line2 city zip_code)
+  @optional_fields ~w( latitude longitude)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

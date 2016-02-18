@@ -66,6 +66,7 @@ const group_assignment = new Schema('group_assignments');
 const mentor_group = new Schema('mentor_groups');
 const facility = new Schema('facilities');
 const schedule = new Schema('schedules');
+const program = new Schema('programs');
 
 schedule.define({
   mentor_group: mentor_group
@@ -85,15 +86,14 @@ address.define({
 })
 
 group_assignment.define({
-  mentor_group: mentor_group,
   volunteer: volunteer,
-  client: client
+  client: client,
+  program: program
 });
 
 mentor_group.define({
-  facility: facility,
-  leader: volunteer,
-  assignments: arrayOf(group_assignment)
+  mentor_group_assignments: arrayOf(group_assignment),
+  schedule_entries: arrayOf(schedule)
 });
 
 volunteer.define({
@@ -101,13 +101,6 @@ volunteer.define({
 });
 
 export function mapToState(json) {
-  return fromJS(
-    normalize(json,
-              {
-                clients: arrayOf(client),
-                group_assignments: arrayOf(group_assignment),
-                mentor_groups: arrayOf(mentor_group),
-                schedules: arrayOf(schedule),
-                volunteers: arrayOf(volunteer)
-              }));
+  const norm = normalize(json, {mentor_groups: arrayOf(mentor_group)});
+  return fromJS({entities: norm.entities});
 }

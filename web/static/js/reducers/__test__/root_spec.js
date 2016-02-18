@@ -1,7 +1,6 @@
 import {List, Map, fromJS} from 'immutable';
-import {expect} from 'chai';
-
-import reducer from '../../../web/static/js/reducers/root';
+import expect from 'expect';
+import reducer from '../root';
 
 describe('reducer', () => {
 
@@ -34,7 +33,7 @@ describe('reducer', () => {
     };
     const nextState = reducer(initialState, action);
 
-    expect(nextState).to.equal(fromJS({
+    expect(nextState).toEqual(fromJS({
       groupSidebar: { title: 'Welcome' },
       groups: [
         {

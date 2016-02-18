@@ -14,6 +14,5 @@ defmodule Metanoia.MentoringView do
 
   def render("mentoring.json", %{mentoring: mentoring}) do
     mentoring
-    # %{id: mentor_group.id, name: mentor_group.name, facility_id: mentor_group.facility_id, mentors: []}
   end
 end

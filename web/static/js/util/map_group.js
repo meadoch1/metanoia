@@ -1,4 +1,4 @@
-import {List} from 'immutable';
+import {List, Map} from 'immutable';
 
 const daysOfTheWeek = new Array(
   'Sunday',
@@ -33,21 +33,21 @@ function buildTitleFromGroup(group) {
 
 export function mapGroupFromState(group) {
   var title = buildTitleFromGroup(group);
-  return {
+  return Map({
     id: group.get('id'),
     name: group.get('name'),
     title: title,
     assignments: group.get('mentor_group_assignments', List()).map( function(assignment){
-      return {
+      return Map({
         id: assignment.get('id'),
         mentor_name: fullNameFromPerson(assignment.getIn(["volunteer","person"], new Map())),
         mentor_id: assignment.getIn(["volunteer","person"], new Map()).get("id", ""),
         mentee_name: fullNameFromPerson(assignment.getIn(["client", "person"], new Map())),
         facility_ref_cd: assignment.getIn(["client","facility_ref_cd"]),
         comments: assignment.get("comments")
-      }
-    }).sortBy( ament => ament.mentor_name ).toArray()
-  }
+      })
+    }).sortBy( ament => ament.get('mentor_name') ).toArray()
+  });
 }
 
 export function mapGroupsFromState(state) {

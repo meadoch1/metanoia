@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux'
 import MentorGroupMaster from '../components/MentorGroupMaster'
 import MentorGroupSidebar from '../components/MentorGroupSidebar'
@@ -30,30 +31,27 @@ export class Mentoring extends React.Component {
 }
 
 Mentoring.propTypes = {
-  groupSidebar: PropTypes.shape({
-    title: PropTypes.string.isRequired
-  }),
-  groups: PropTypes.arrayOf(PropTypes.shape({
+  mentor_groups: ImmutablePropTypes.mapOf(ImmutablePropTypes.contains({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     //  onGroupReportClick: PropTypes.func.isRequired,
-    assignments: PropTypes.arrayOf(
-      PropTypes.shape({
+    assignments: ImmutablePropTypes.listOf(
+      ImmutablePropTypes.contains({
         id: PropTypes.number.isRequired,
-      mentor_name: PropTypes.string.isRequired,
-      mentee_name: PropTypes.string,
-      facility_ref_cd: PropTypes.string,
-      comments: PropTypes.string
-    }).isRequired).isRequired})
+        mentor_name: PropTypes.string.isRequired,
+        mentee_name: PropTypes.string,
+        facility_ref_cd: PropTypes.string,
+        comments: PropTypes.string
+      }).isRequired).isRequired})
   ).isRequired
 };
 
 export const mapStateToProps = function(state) {
   var groups = mapGroupsFromState(state.root);
-  return {
-    groupSidebar: { title: 'test'},
+  return Map({
+    groupSidebar: Map({ title: 'test'}),
     groups: groups
-  };
+  });
 }
 export const MentoringContainer =  connect(mapStateToProps)(Mentoring);
