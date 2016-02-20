@@ -56,18 +56,18 @@ SeedHelper.do_insert(Address, addresses)
 
 alias Metanoia.Person
 people = [
-  %Person{ id: 1, first_name: "Basil", middle_name: "Barry", last_name: "Mendez", phone: "(671) 458-6564", mobile_phone: "(735) 247-1116", email: "fermentum@metus.co.uk", dob: "1933-06-06T11:07:19-08:00", work_phone: "(727) 139-2661", spouse_name: "Leigh", email2: "tristique@arcu.net", nickname: "Bar", address_id: 1 },
-  %Person{ id: 2, first_name: "Zorita", middle_name: "Acton", last_name: "Drake", dob: "1953-06-06T11:07:19-08:00" },
-  %Person{ id: 3, first_name: "Price", last_name: "Francis", phone: "(233) 711-5746", mobile_phone: "(449) 251-0439", email: "eget.dictum@odioNaminterdum.com", dob: "1939-06-29", work_phone: "(847) 726-1058", spouse_name: "Shea", email2: "pellentesque@Integer.net", nickname: "Money", address_id: 2 },
-  %Person{ id: 4, first_name: "Irene", middle_name: "Bruno", last_name: "Cox", dob: "1975-03-04" },
-  %Person{ id: 5, first_name: "Seth", middle_name: "Adrian", last_name: "Patterson", phone: "(203) 461-9805", mobile_phone: "(694) 614-0672", email: "nunc.sit@aliquetPhasellus.com", dob: "1969-06-29", work_phone: "(287) 384-4777", spouse_name: "Bree", address_id: 3 },
-  %Person{ id: 6, first_name: "Richard", middle_name: "Alvin", last_name: "Valenzuela", dob: "1965-03-04" },
-  %Person{ id: 7, first_name: "Gray", middle_name: "Gabriel", last_name: "Lloyd", phone: "(423) 342-9485", mobile_phone: "(423) 222-0672", email: "dolor@vestibulum.org", dob: "1979-07-29", address_id: 4 },
-  %Person{ id: 8, first_name: "Mikayla", last_name: "Woods", dob: "1973-08-14" },
-  %Person{ id: 9, first_name: "Lucian", middle_name: "Prescott", last_name: "Harvey", phone: "(423) 214-5849", mobile_phone: "(423) 853-1830", email: "sceleris@magna.net", dob: "1954-10-09", address_id: 5 },
-  %Person{ id: 10, first_name: "Kasper", last_name: "Keith", dob: "1983-08-14" },
-  %Person{ id: 11, first_name: "Keegan", last_name: "Hull", phone: "(423) 314-7647", mobile_phone: "(423) 402-9321", email: "vitae@condi.ca", dob: "1942-11-11", address_id: 6 },
-  %Person{ id: 12, first_name: "Dillon", last_name: "Conway", dob: "1988-05-14" }
+  %Person{ id: 1, first_name: "Basil", middle_name: "Barry", last_name: "Mendez", phone: "(671) 458-6564", mobile_phone: "(735) 247-1116", email: "fermentum@metus.co.uk", dob: Ecto.Date.cast!("1933-06-06"), work_phone: "(727) 139-2661", spouse_name: "Leigh", email2: "tristique@arcu.net", nickname: "Bar", address_id: 1 },
+  %Person{ id: 2, first_name: "Zorita", middle_name: "Acton", last_name: "Drake", dob: Ecto.Date.cast!("1953-06-06") },
+  %Person{ id: 3, first_name: "Price", last_name: "Francis", phone: "(233) 711-5746", mobile_phone: "(449) 251-0439", email: "eget.dictum@odioNaminterdum.com", dob: Ecto.Date.cast!("1939-06-29"), work_phone: "(847) 726-1058", spouse_name: "Shea", email2: "pellentesque@Integer.net", nickname: "Money", address_id: 2 },
+  %Person{ id: 4, first_name: "Irene", middle_name: "Bruno", last_name: "Cox", dob: Ecto.Date.cast!("1975-03-04") },
+  %Person{ id: 5, first_name: "Seth", middle_name: "Adrian", last_name: "Patterson", phone: "(203) 461-9805", mobile_phone: "(694) 614-0672", email: "nunc.sit@aliquetPhasellus.com", dob: Ecto.Date.cast!("1969-06-29"), work_phone: "(287) 384-4777", spouse_name: "Bree", address_id: 3 },
+  %Person{ id: 6, first_name: "Richard", middle_name: "Alvin", last_name: "Valenzuela", dob: Ecto.Date.cast!("1965-03-04") },
+  %Person{ id: 7, first_name: "Gray", middle_name: "Gabriel", last_name: "Lloyd", phone: "(423) 342-9485", mobile_phone: "(423) 222-0672", email: "dolor@vestibulum.org", dob: Ecto.Date.cast!("1979-07-29"), address_id: 4 },
+  %Person{ id: 8, first_name: "Mikayla", last_name: "Woods", dob: Ecto.Date.cast!("1973-08-14") },
+  %Person{ id: 9, first_name: "Lucian", middle_name: "Prescott", last_name: "Harvey", phone: "(423) 214-5849", mobile_phone: "(423) 853-1830", email: "sceleris@magna.net", dob: Ecto.Date.cast!("1954-10-09"), address_id: 5 },
+  %Person{ id: 10, first_name: "Kasper", last_name: "Keith", dob: Ecto.Date.cast!("1983-08-14") },
+  %Person{ id: 11, first_name: "Keegan", last_name: "Hull", phone: "(423) 314-7647", mobile_phone: "(423) 402-9321", email: "vitae@condi.ca", dob: Ecto.Date.cast!("1942-11-11"), address_id: 6 },
+  %Person{ id: 12, first_name: "Dillon", last_name: "Conway", dob: Ecto.Date.cast!("1988-05-14") }
 ]
 SeedHelper.do_insert(Person, people)
 
@@ -86,12 +86,12 @@ SeedHelper.do_insert(Volunteer, vols)
 
 alias Metanoia.Client
 clients = [
-  %Client{ id: 1, facility_ref_cd: "CLIENT1", earliest_out_dt: "2018-01-01", note: "Client 1 note", tentative_parole_month: "2017-01-01", max_possible_release_dt: "2029-01-01", comment: "Client 1 comment", person_id: 2, facility_id: 1, client_status_id: 1, parole_status_id: 1 },
-  %Client{ id: 2, facility_ref_cd: "CLIENT2", earliest_out_dt: "2020-02-02", note: "Client 2 note", tentative_parole_month: "2017-02-02", max_possible_release_dt: "2029-02-02", comment: "Client 2 comment", person_id: 4, facility_id: 1, client_status_id: 1, parole_status_id: 1 },
-  %Client{ id: 2, facility_ref_cd: "CLIENT3", earliest_out_dt: "2020-03-03", note: "Client 3 note", tentative_parole_month: "2017-03-03", max_possible_release_dt: "2029-03-03", comment: "Client 3 comment", person_id: 6, facility_id: 1, client_status_id: 1, parole_status_id: 1 },
-  %Client{ id: 2, facility_ref_cd: "CLIENT4", earliest_out_dt: "2020-04-04", note: "Client 4 note", tentative_parole_month: "2017-04-04", max_possible_release_dt: "2029-04-04", comment: "Client 4 comment", person_id: 8, facility_id: 1, client_status_id: 1, parole_status_id: 1 },
-  %Client{ id: 2, facility_ref_cd: "CLIENT5", earliest_out_dt: "2020-05-05", note: "Client 5 note", tentative_parole_month: "2017-05-05", max_possible_release_dt: "2029-05-05", comment: "Client 5 comment", person_id: 10, facility_id: 2, client_status_id: 1, parole_status_id: 1 },
-  %Client{ id: 2, facility_ref_cd: "CLIENT6", earliest_out_dt: "2020-06-06", note: "Client 6 note", tentative_parole_month: "2017-06-06", max_possible_release_dt: "2029-06-06", comment: "Client 6 comment", person_id: 12, facility_id: 2, client_status_id: 1, parole_status_id: 1 }
+  %Client{ id: 1, facility_ref_cd: "CLIENT1", earliest_out_dt: Ecto.Date.cast!("2018-01-01"), note: "Client 1 note", tentative_parole_month: Ecto.Date.cast!("2017-01-01"), max_possible_release_dt: Ecto.Date.cast!("2029-01-01"), comment: "Client 1 comment", person_id: 2, facility_id: 1, client_status_id: 1, parole_status_id: 1 },
+  %Client{ id: 2, facility_ref_cd: "CLIENT2", earliest_out_dt: Ecto.Date.cast!("2020-02-02"), note: "Client 2 note", tentative_parole_month: Ecto.Date.cast!("2017-02-02"), max_possible_release_dt: Ecto.Date.cast!("2029-02-02"), comment: "Client 2 comment", person_id: 4, facility_id: 1, client_status_id: 1, parole_status_id: 1 },
+  %Client{ id: 3, facility_ref_cd: "CLIENT3", earliest_out_dt: Ecto.Date.cast!("2020-03-03"), note: "Client 3 note", tentative_parole_month: Ecto.Date.cast!("2017-03-03"), max_possible_release_dt: Ecto.Date.cast!("2029-03-03"), comment: "Client 3 comment", person_id: 6, facility_id: 1, client_status_id: 1, parole_status_id: 1 },
+  %Client{ id: 4, facility_ref_cd: "CLIENT4", earliest_out_dt: Ecto.Date.cast!("2020-04-04"), note: "Client 4 note", tentative_parole_month: Ecto.Date.cast!("2017-04-04"), max_possible_release_dt: Ecto.Date.cast!("2029-04-04"), comment: "Client 4 comment", person_id: 8, facility_id: 1, client_status_id: 1, parole_status_id: 1 },
+  %Client{ id: 5, facility_ref_cd: "CLIENT5", earliest_out_dt: Ecto.Date.cast!("2020-05-05"), note: "Client 5 note", tentative_parole_month: Ecto.Date.cast!("2017-05-05"), max_possible_release_dt: Ecto.Date.cast!("2029-05-05"), comment: "Client 5 comment", person_id: 10, facility_id: 2, client_status_id: 1, parole_status_id: 1 },
+  %Client{ id: 6, facility_ref_cd: "CLIENT6", earliest_out_dt: Ecto.Date.cast!("2020-06-06"), note: "Client 6 note", tentative_parole_month: Ecto.Date.cast!("2017-06-06"), max_possible_release_dt: Ecto.Date.cast!("2029-06-06"), comment: "Client 6 comment", person_id: 12, facility_id: 2, client_status_id: 1, parole_status_id: 1 }
 ]
 SeedHelper.do_insert(Client, clients)
 
@@ -105,12 +105,12 @@ SeedHelper.do_insert(MentorGroup, groups)
 
 alias Metanoia.MentorGroupAssignment
 mgas = [
-  %MentorGroupAssignment{ id: 1, comments: "mentor group assignment 1 comment", start_month: "2015-06-06", mentor_group_id: 1, volunteer_id: 1, client_id: 1, program_id: 2 },
-  %MentorGroupAssignment{ id: 2, comments: "mentor group assignment 2 comment", start_month: "2013-02-02", mentor_group_id: 1, volunteer_id: 2, client_id: 2, program_id: 2 },
-  %MentorGroupAssignment{ id: 3, comments: "mentor group assignment 3 comment", start_month: "2014-03-03", mentor_group_id: 2, volunteer_id: 3, client_id: 3, program_id: 2 },
-  %MentorGroupAssignment{ id: 4, comments: "mentor group assignment 4 comment", start_month: "2015-04-04", mentor_group_id: 2, volunteer_id: 4, client_id: 4, program_id: 2 },
-  %MentorGroupAssignment{ id: 5, comments: "mentor group assignment 5 comment", start_month: "2010-05-05", mentor_group_id: 3, volunteer_id: 5, client_id: 5, program_id: 2 },
-  %MentorGroupAssignment{ id: 6, comments: "mentor group assignment 6 comment", start_month: "2012-06-06", mentor_group_id: 3, volunteer_id: 6, client_id: 6, program_id: 2 }
+  %MentorGroupAssignment{ id: 1, comments: "mentor group assignment 1 comment", start_month: Ecto.Date.cast!("2015-06-06"), mentor_group_id: 1, volunteer_id: 1, client_id: 1, program_id: 2 },
+  %MentorGroupAssignment{ id: 2, comments: "mentor group assignment 2 comment", start_month: Ecto.Date.cast!("2013-02-02"), mentor_group_id: 1, volunteer_id: 2, client_id: 2, program_id: 2 },
+  %MentorGroupAssignment{ id: 3, comments: "mentor group assignment 3 comment", start_month: Ecto.Date.cast!("2014-03-03"), mentor_group_id: 2, volunteer_id: 3, client_id: 3, program_id: 2 },
+  %MentorGroupAssignment{ id: 4, comments: "mentor group assignment 4 comment", start_month: Ecto.Date.cast!("2015-04-04"), mentor_group_id: 2, volunteer_id: 4, client_id: 4, program_id: 2 },
+  %MentorGroupAssignment{ id: 5, comments: "mentor group assignment 5 comment", start_month: Ecto.Date.cast!("2010-05-05"), mentor_group_id: 3, volunteer_id: 5, client_id: 5, program_id: 2 },
+  %MentorGroupAssignment{ id: 6, comments: "mentor group assignment 6 comment", start_month: Ecto.Date.cast!("2012-06-06"), mentor_group_id: 3, volunteer_id: 6, client_id: 6, program_id: 2 }
 ]
 SeedHelper.do_insert(MentorGroupAssignment, mgas)
 
