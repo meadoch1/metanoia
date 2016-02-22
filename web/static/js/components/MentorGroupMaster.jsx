@@ -3,6 +3,7 @@ import { shallowCompare } from 'react-addons-shallow-compare';
 import MentorGroupDetail from './MentorGroupDetail';
 import { Link } from 'react-router';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import {Map, List} from 'immutable';
 
 export default class MentorGroupMaster extends Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -14,7 +15,7 @@ export default class MentorGroupMaster extends Component {
     return (
       <div className="panel panel-default" >
         <div className="panel-heading">
-          <h4 className="panel-title group-title"><strong>{group.get("name")} ({group.get("mentor_group_assignments", List({})).length})  </strong>
+          <h4 className="panel-title group-title"><strong>{group.get("name")} ({group.get("mentor_group_assignments").size})  </strong>
             <small>Fill in title somehow</small>
             <div className='pull-right'>
               <Link to={`/mentoring/email_group/${group.get("id")}`}><i className="fa fa-envelope" ></i></Link>
@@ -33,7 +34,7 @@ export default class MentorGroupMaster extends Component {
             </tr>
           </thead>
           <tbody>
-            {group.get("mentor_group_assignments", List({})).map((assignment_id, index) =>
+            {group.get("mentor_group_assignments").map((assignment_id, index) =>
               <MentorGroupDetail entities={this.props.entities} group_assignment={this.props.entities.getIn(["group_assignments", assignment_id.toString()], Map({}))} leader_id={group.get("leader_id").toString()}/>
             )}
           </tbody>

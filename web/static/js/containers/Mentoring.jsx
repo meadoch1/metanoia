@@ -26,7 +26,7 @@ export class Mentoring extends React.Component {
       <div className="row">
         <div id="groups-container" className="col-sm-9">
           {mentor_groups.map( group =>
-            <MentorGroupMaster {...group} key={"group"+group.id} />
+            <MentorGroupMaster group={group} entities={entities} key={"group"+group.id} />
            )}
         </div>
         <div className="col-sm-3">
@@ -38,20 +38,13 @@ export class Mentoring extends React.Component {
 }
 
 Mentoring.propTypes = {
-  mentor_groups: ImmutablePropTypes.mapOf(ImmutablePropTypes.contains({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    //  onGroupReportClick: PropTypes.func.isRequired,
-    assignments: ImmutablePropTypes.listOf(
-      ImmutablePropTypes.contains({
-        id: PropTypes.number.isRequired,
-        mentor_name: PropTypes.string.isRequired,
-        mentee_name: PropTypes.string,
-        facility_ref_cd: PropTypes.string,
-        comments: PropTypes.string
-      }).isRequired).isRequired})
-  ).isRequired
+  entities: ImmutablePropTypes.contains({
+    mentor_groups: ImmutablePropTypes.map.isRequired,
+    persons: ImmutablePropTypes.map.isRequired,
+    clients: ImmutablePropTypes.map.isRequired,
+    volunteers: ImmutablePropTypes.map.isRequired,
+    group_assignments: ImmutablePropTypes.map.isRequired
+  }).isRequired
 };
 
 export const mapStateToProps = function(state) {
