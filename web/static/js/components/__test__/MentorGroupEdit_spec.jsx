@@ -1,11 +1,11 @@
-import React from 'react/addons';
+import React from 'react';
 import { expect} from 'chai';
 import chai from 'chai';
 import {MentorGroupEdit }from '../MentorGroupEdit';
 
-const {renderIntoDocument,
+import {renderIntoDocument,
        scryRenderedDOMComponentsWithClass,
-       Simulate} = React.addons.TestUtils;
+       Simulate} from 'react-addons-test-utils';
 
 describe('MentorGroupEdit', () => {
   it('renders the group edit page', () => {

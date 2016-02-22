@@ -1,0 +1,655 @@
+{
+  "mentor_groups": [
+    {
+      "schedule_entries": [
+        {
+          "week_of_month": 1,
+          "mentor_group_id": 1,
+          "id": 1,
+          "day_of_week": 1
+        },
+        {
+          "week_of_month": 3,
+          "mentor_group_id": 1,
+          "id": 2,
+          "day_of_week": 1
+        }
+      ],
+      "name": "WS Group 1",
+      "mentor_group_assignments": [
+        {
+          "volunteer_id": 1,
+          "volunteer": {
+            "volunteer_status_id": 2,
+            "relationship_preference_id": 5,
+            "person_id": 1,
+            "person": {
+              "work_phone": "(727) 139-2661",
+              "suffix": null,
+              "spouse_name": "Leigh",
+              "phone": "(671) 458-6564",
+              "pastor_id": null,
+              "nickname": "Bar",
+              "mobile_phone": "(735) 247-1116",
+              "middle_name": "Barry",
+              "last_name": "Mendez",
+              "id": 1,
+              "first_name": "Basil",
+              "email2": "tristique@arcu.net",
+              "email": "fermentum@metus.co.uk",
+              "dob": "1933-06-06",
+              "church_id": null,
+              "address_id": 1,
+              "address": {
+                "zip_code": "36740",
+                "state_id": 42,
+                "state": {
+                  "name": "Tennessee",
+                  "id": 42,
+                  "abbreviation": "TN"
+                },
+                "longitude": null,
+                "line2": null,
+                "line1": "5843 Hendrerit St.",
+                "latitude": null,
+                "id": 1,
+                "city": "Herne",
+                "address_type_id": 1,
+                "address_type": {
+                  "name": "Home",
+                  "id": 1
+                }
+              }
+            },
+            "note": "volunteer 1 note",
+            "mna_second_career": false,
+            "id": 1
+          },
+          "start_month": "2015-06-06",
+          "program_id": 2,
+          "program": {
+            "name": "Mentor",
+            "id": 2
+          },
+          "mentor_group_id": 1,
+          "id": 1,
+          "comments": "mentor group assignment 1 comment",
+          "client_id": 1,
+          "client": {
+            "tentative_parole_month": "2017-01-01",
+            "person_id": 2,
+            "person": {
+              "work_phone": null,
+              "suffix": null,
+              "spouse_name": null,
+              "phone": null,
+              "pastor_id": null,
+              "nickname": null,
+              "mobile_phone": null,
+              "middle_name": "Acton",
+              "last_name": "Drake",
+              "id": 2,
+              "first_name": "Zorita",
+              "email2": null,
+              "email": null,
+              "dob": "1953-06-06",
+              "church_id": null,
+              "address_id": null
+            },
+            "parole_status_id": 1,
+            "note": "Client 1 note",
+            "max_possible_release_dt": "2029-01-01",
+            "id": 1,
+            "grader_address_text": null,
+            "facility_ref_cd": "CLIENT1",
+            "facility_id": 1,
+            "facility_address_text": null,
+            "earliest_out_dt": "2018-01-01",
+            "client_status_id": 1
+          }
+        },
+        {
+          "volunteer_id": 2,
+          "volunteer": {
+            "volunteer_status_id": 2,
+            "relationship_preference_id": 5,
+            "person_id": 3,
+            "person": {
+              "work_phone": "(847) 726-1058",
+              "suffix": null,
+              "spouse_name": "Shea",
+              "phone": "(233) 711-5746",
+              "pastor_id": null,
+              "nickname": "Money",
+              "mobile_phone": "(449) 251-0439",
+              "middle_name": null,
+              "last_name": "Francis",
+              "id": 3,
+              "first_name": "Price",
+              "email2": "pellentesque@Integer.net",
+              "email": "eget.dictum@odioNaminterdum.com",
+              "dob": "1939-06-29",
+              "church_id": null,
+              "address_id": 2,
+              "address": {
+                "zip_code": "99430",
+                "state_id": 5,
+                "state": {
+                  "name": "California",
+                  "id": 5,
+                  "abbreviation": "CA"
+                },
+                "longitude": null,
+                "line2": null,
+                "line1": "2253 Non, Rd.",
+                "latitude": null,
+                "id": 2,
+                "city": "Acquasanta Terme",
+                "address_type_id": 1,
+                "address_type": {
+                  "name": "Home",
+                  "id": 1
+                }
+              }
+            },
+            "note": "volunteer 2 note",
+            "mna_second_career": false,
+            "id": 2
+          },
+          "start_month": "2013-02-02",
+          "program_id": 2,
+          "program": {
+            "name": "Mentor",
+            "id": 2
+          },
+          "mentor_group_id": 1,
+          "id": 2,
+          "comments": "mentor group assignment 2 comment",
+          "client_id": 2,
+          "client": {
+            "tentative_parole_month": "2017-02-02",
+            "person_id": 4,
+            "person": {
+              "work_phone": null,
+              "suffix": null,
+              "spouse_name": null,
+              "phone": null,
+              "pastor_id": null,
+              "nickname": null,
+              "mobile_phone": null,
+              "middle_name": "Bruno",
+              "last_name": "Cox",
+              "id": 4,
+              "first_name": "Irene",
+              "email2": null,
+              "email": null,
+              "dob": "1975-03-04",
+              "church_id": null,
+              "address_id": null
+            },
+            "parole_status_id": 1,
+            "note": "Client 2 note",
+            "max_possible_release_dt": "2029-02-02",
+            "id": 2,
+            "grader_address_text": null,
+            "facility_ref_cd": "CLIENT2",
+            "facility_id": 1,
+            "facility_address_text": null,
+            "earliest_out_dt": "2020-02-02",
+            "client_status_id": 1
+          }
+        }
+      ],
+      "leader_id": 1,
+      "id": 1,
+      "facility_id": 1,
+      "facility": {
+        "warden_id": null,
+        "security_level_id": null,
+        "resident_address_id": null,
+        "pop_gender_id": null,
+        "name": "Walker State",
+        "jurisdiction_id": null,
+        "id": 1,
+        "courier": null,
+        "chaplain_id": null,
+        "avg_daily_pop": null,
+        "address_id": null
+      }
+    },
+    {
+      "schedule_entries": [
+        {
+          "week_of_month": 1,
+          "mentor_group_id": 2,
+          "id": 3,
+          "day_of_week": 3
+        },
+        {
+          "week_of_month": 3,
+          "mentor_group_id": 2,
+          "id": 4,
+          "day_of_week": 3
+        }
+      ],
+      "name": "WS Group 2",
+      "mentor_group_assignments": [
+        {
+          "volunteer_id": 3,
+          "volunteer": {
+            "volunteer_status_id": 2,
+            "relationship_preference_id": 5,
+            "person_id": 5,
+            "person": {
+              "work_phone": "(287) 384-4777",
+              "suffix": null,
+              "spouse_name": "Bree",
+              "phone": "(203) 461-9805",
+              "pastor_id": null,
+              "nickname": null,
+              "mobile_phone": "(694) 614-0672",
+              "middle_name": "Adrian",
+              "last_name": "Patterson",
+              "id": 5,
+              "first_name": "Seth",
+              "email2": null,
+              "email": "nunc.sit@aliquetPhasellus.com",
+              "dob": "1969-06-29",
+              "church_id": null,
+              "address_id": 3,
+              "address": {
+                "zip_code": "16775",
+                "state_id": 19,
+                "state": {
+                  "name": "Maine",
+                  "id": 19,
+                  "abbreviation": "ME"
+                },
+                "longitude": null,
+                "line2": null,
+                "line1": "403 A, Ave",
+                "latitude": null,
+                "id": 3,
+                "city": "Macklin",
+                "address_type_id": 1,
+                "address_type": {
+                  "name": "Home",
+                  "id": 1
+                }
+              }
+            },
+            "note": "volunteer 3 note",
+            "mna_second_career": false,
+            "id": 3
+          },
+          "start_month": "2014-03-03",
+          "program_id": 2,
+          "program": {
+            "name": "Mentor",
+            "id": 2
+          },
+          "mentor_group_id": 2,
+          "id": 3,
+          "comments": "mentor group assignment 3 comment",
+          "client_id": 3,
+          "client": {
+            "tentative_parole_month": "2017-03-03",
+            "person_id": 6,
+            "person": {
+              "work_phone": null,
+              "suffix": null,
+              "spouse_name": null,
+              "phone": null,
+              "pastor_id": null,
+              "nickname": null,
+              "mobile_phone": null,
+              "middle_name": "Alvin",
+              "last_name": "Valenzuela",
+              "id": 6,
+              "first_name": "Richard",
+              "email2": null,
+              "email": null,
+              "dob": "1965-03-04",
+              "church_id": null,
+              "address_id": null
+            },
+            "parole_status_id": 1,
+            "note": "Client 3 note",
+            "max_possible_release_dt": "2029-03-03",
+            "id": 3,
+            "grader_address_text": null,
+            "facility_ref_cd": "CLIENT3",
+            "facility_id": 1,
+            "facility_address_text": null,
+            "earliest_out_dt": "2020-03-03",
+            "client_status_id": 1
+          }
+        },
+        {
+          "volunteer_id": 4,
+          "volunteer": {
+            "volunteer_status_id": 2,
+            "relationship_preference_id": 5,
+            "person_id": 7,
+            "person": {
+              "work_phone": null,
+              "suffix": null,
+              "spouse_name": null,
+              "phone": "(423) 342-9485",
+              "pastor_id": null,
+              "nickname": null,
+              "mobile_phone": "(423) 222-0672",
+              "middle_name": "Gabriel",
+              "last_name": "Lloyd",
+              "id": 7,
+              "first_name": "Gray",
+              "email2": null,
+              "email": "dolor@vestibulum.org",
+              "dob": "1979-07-29",
+              "church_id": null,
+              "address_id": 4,
+              "address": {
+                "zip_code": "37645",
+                "state_id": 42,
+                "state": {
+                  "name": "Tennessee",
+                  "id": 42,
+                  "abbreviation": "TN"
+                },
+                "longitude": null,
+                "line2": null,
+                "line1": "P.O. Box 499, 1899 Tempus St.",
+                "latitude": null,
+                "id": 4,
+                "city": "Betim",
+                "address_type_id": 1,
+                "address_type": {
+                  "name": "Home",
+                  "id": 1
+                }
+              }
+            },
+            "note": "volunteer 4 note",
+            "mna_second_career": false,
+            "id": 4
+          },
+          "start_month": "2015-04-04",
+          "program_id": 2,
+          "program": {
+            "name": "Mentor",
+            "id": 2
+          },
+          "mentor_group_id": 2,
+          "id": 4,
+          "comments": "mentor group assignment 4 comment",
+          "client_id": 4,
+          "client": {
+            "tentative_parole_month": "2017-04-04",
+            "person_id": 8,
+            "person": {
+              "work_phone": null,
+              "suffix": null,
+              "spouse_name": null,
+              "phone": null,
+              "pastor_id": null,
+              "nickname": null,
+              "mobile_phone": null,
+              "middle_name": null,
+              "last_name": "Woods",
+              "id": 8,
+              "first_name": "Mikayla",
+              "email2": null,
+              "email": null,
+              "dob": "1973-08-14",
+              "church_id": null,
+              "address_id": null
+            },
+            "parole_status_id": 1,
+            "note": "Client 4 note",
+            "max_possible_release_dt": "2029-04-04",
+            "id": 4,
+            "grader_address_text": null,
+            "facility_ref_cd": "CLIENT4",
+            "facility_id": 1,
+            "facility_address_text": null,
+            "earliest_out_dt": "2020-04-04",
+            "client_status_id": 1
+          }
+        }
+      ],
+      "leader_id": 3,
+      "id": 2,
+      "facility_id": 1,
+      "facility": {
+        "warden_id": null,
+        "security_level_id": null,
+        "resident_address_id": null,
+        "pop_gender_id": null,
+        "name": "Walker State",
+        "jurisdiction_id": null,
+        "id": 1,
+        "courier": null,
+        "chaplain_id": null,
+        "avg_daily_pop": null,
+        "address_id": null
+      }
+    },
+    {
+      "schedule_entries": [
+        {
+          "week_of_month": 2,
+          "mentor_group_id": 3,
+          "id": 5,
+          "day_of_week": 5
+        },
+        {
+          "week_of_month": 4,
+          "mentor_group_id": 3,
+          "id": 6,
+          "day_of_week": 5
+        }
+      ],
+      "name": "HS Group 1",
+      "mentor_group_assignments": [
+        {
+          "volunteer_id": 5,
+          "volunteer": {
+            "volunteer_status_id": 2,
+            "relationship_preference_id": 5,
+            "person_id": 9,
+            "person": {
+              "work_phone": null,
+              "suffix": null,
+              "spouse_name": null,
+              "phone": "(423) 214-5849",
+              "pastor_id": null,
+              "nickname": null,
+              "mobile_phone": "(423) 853-1830",
+              "middle_name": "Prescott",
+              "last_name": "Harvey",
+              "id": 9,
+              "first_name": "Lucian",
+              "email2": null,
+              "email": "sceleris@magna.net",
+              "dob": "1954-10-09",
+              "church_id": null,
+              "address_id": 5,
+              "address": {
+                "zip_code": "37646",
+                "state_id": 42,
+                "state": {
+                  "name": "Tennessee",
+                  "id": 42,
+                  "abbreviation": "TN"
+                },
+                "longitude": null,
+                "line2": null,
+                "line1": "Ap #393-2210 Tellus Ave",
+                "latitude": null,
+                "id": 5,
+                "city": "Quillota",
+                "address_type_id": 1,
+                "address_type": {
+                  "name": "Home",
+                  "id": 1
+                }
+              }
+            },
+            "note": "volunteer 5 note",
+            "mna_second_career": false,
+            "id": 5
+          },
+          "start_month": "2010-05-05",
+          "program_id": 2,
+          "program": {
+            "name": "Mentor",
+            "id": 2
+          },
+          "mentor_group_id": 3,
+          "id": 5,
+          "comments": "mentor group assignment 5 comment",
+          "client_id": 5,
+          "client": {
+            "tentative_parole_month": "2017-05-05",
+            "person_id": 10,
+            "person": {
+              "work_phone": null,
+              "suffix": null,
+              "spouse_name": null,
+              "phone": null,
+              "pastor_id": null,
+              "nickname": null,
+              "mobile_phone": null,
+              "middle_name": null,
+              "last_name": "Keith",
+              "id": 10,
+              "first_name": "Kasper",
+              "email2": null,
+              "email": null,
+              "dob": "1983-08-14",
+              "church_id": null,
+              "address_id": null
+            },
+            "parole_status_id": 1,
+            "note": "Client 5 note",
+            "max_possible_release_dt": "2029-05-05",
+            "id": 5,
+            "grader_address_text": null,
+            "facility_ref_cd": "CLIENT5",
+            "facility_id": 2,
+            "facility_address_text": null,
+            "earliest_out_dt": "2020-05-05",
+            "client_status_id": 1
+          }
+        },
+        {
+          "volunteer_id": 6,
+          "volunteer": {
+            "volunteer_status_id": 2,
+            "relationship_preference_id": 5,
+            "person_id": 11,
+            "person": {
+              "work_phone": null,
+              "suffix": null,
+              "spouse_name": null,
+              "phone": "(423) 314-7647",
+              "pastor_id": null,
+              "nickname": null,
+              "mobile_phone": "(423) 402-9321",
+              "middle_name": null,
+              "last_name": "Hull",
+              "id": 11,
+              "first_name": "Keegan",
+              "email2": null,
+              "email": "vitae@condi.ca",
+              "dob": "1942-11-11",
+              "church_id": null,
+              "address_id": 6,
+              "address": {
+                "zip_code": "38483",
+                "state_id": 42,
+                "state": {
+                  "name": "Tennessee",
+                  "id": 42,
+                  "abbreviation": "TN"
+                },
+                "longitude": null,
+                "line2": null,
+                "line1": "P.O. Box 874, 6464 Nonummy Av.",
+                "latitude": null,
+                "id": 6,
+                "city": "Ligney",
+                "address_type_id": 1,
+                "address_type": {
+                  "name": "Home",
+                  "id": 1
+                }
+              }
+            },
+            "note": "volunteer 6 note",
+            "mna_second_career": false,
+            "id": 6
+          },
+          "start_month": "2012-06-06",
+          "program_id": 2,
+          "program": {
+            "name": "Mentor",
+            "id": 2
+          },
+          "mentor_group_id": 3,
+          "id": 6,
+          "comments": "mentor group assignment 6 comment",
+          "client_id": 6,
+          "client": {
+            "tentative_parole_month": "2017-06-06",
+            "person_id": 12,
+            "person": {
+              "work_phone": null,
+              "suffix": null,
+              "spouse_name": null,
+              "phone": null,
+              "pastor_id": null,
+              "nickname": null,
+              "mobile_phone": null,
+              "middle_name": null,
+              "last_name": "Conway",
+              "id": 12,
+              "first_name": "Dillon",
+              "email2": null,
+              "email": null,
+              "dob": "1988-05-14",
+              "church_id": null,
+              "address_id": null
+            },
+            "parole_status_id": 1,
+            "note": "Client 6 note",
+            "max_possible_release_dt": "2029-06-06",
+            "id": 6,
+            "grader_address_text": null,
+            "facility_ref_cd": "CLIENT6",
+            "facility_id": 2,
+            "facility_address_text": null,
+            "earliest_out_dt": "2020-06-06",
+            "client_status_id": 1
+          }
+        }
+      ],
+      "leader_id": 5,
+      "id": 3,
+      "facility_id": 2,
+      "facility": {
+        "warden_id": null,
+        "security_level_id": null,
+        "resident_address_id": null,
+        "pop_gender_id": null,
+        "name": "Hays State",
+        "jurisdiction_id": null,
+        "id": 2,
+        "courier": null,
+        "chaplain_id": null,
+        "avg_daily_pop": null,
+        "address_id": null
+      }
+    }
+  ]
+}

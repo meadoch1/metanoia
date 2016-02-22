@@ -1,17 +1,17 @@
-import React from 'react/addons';
+import React from 'react';
 import {expect} from 'chai';
 import {Mentoring, mapStateToProps }from '../Mentoring';
-import {initialState} from '../../util/initialState';
+import {initialMentoringState} from '../../util/initialMentoringState';
 
-const {renderIntoDocument,
+import {renderIntoDocument,
        scryRenderedDOMComponentsWithClass,
-       Simulate} = React.addons.TestUtils;
+       Simulate} from 'react-addons-test-utils';
 
 describe('Mentoring', () => {
   it('renders groups', () => {
-    var props = mapStateToProps(initialState);
+    var props = mapStateToProps(initialMentoringState);
     const component = renderIntoDocument(
-      <Mentoring groupSidebar={props.groupSidebar} groups={props.groups} />
+      <Mentoring entities={props.get("entities")}/>
     );
 
     const groups = scryRenderedDOMComponentsWithClass(component,'group-title' );
@@ -23,7 +23,7 @@ describe('Mentoring', () => {
   });
 
   it('renders the sidebar', () => {
-    var props = mapStateToProps(initialState);
+    var props = mapStateToProps(initialMentoringState);
     const component = renderIntoDocument(
       <Mentoring groupSidebar={props.groupSidebar} groups={props.groups} />
     );

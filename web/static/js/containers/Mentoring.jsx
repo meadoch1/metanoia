@@ -1,24 +1,31 @@
 import React, {Component, PropTypes} from 'react';
+import { Map } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux'
 import MentorGroupMaster from '../components/MentorGroupMaster'
 import MentorGroupSidebar from '../components/MentorGroupSidebar'
-import {fetchState} from '../actions'
+import {requestMentorGroups} from '../actions'
 import {mapGroupsFromState} from '../util/map_group';
 
 export class Mentoring extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
     if (dispatch != undefined) {
-      dispatch(fetchState());
+      dispatch(requestMentorGroups());
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return !React.addons.shallowCompare(this, nextProps, nextState)
+  }
+
   render() {
+    const entities = this.props.entities;
+    const mentor_groups = entities.get("mentor_groups", Map({})).valueSeq();
     return (
       <div className="row">
         <div id="groups-container" className="col-sm-9">
-          {this.props.groups.map( group =>
+          {mentor_groups.map( group =>
             <MentorGroupMaster {...group} key={"group"+group.id} />
            )}
         </div>
@@ -48,10 +55,10 @@ Mentoring.propTypes = {
 };
 
 export const mapStateToProps = function(state) {
-  var groups = mapGroupsFromState(state.root);
-  return Map({
-    groupSidebar: Map({ title: 'test'}),
-    groups: groups
-  });
+  return state;
+  /* var groups = mapGroupsFromState(state.root);
+     return {
+     mentor_groups: groups
+     }; */
 }
 export const MentoringContainer =  connect(mapStateToProps)(Mentoring);

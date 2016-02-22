@@ -7,12 +7,12 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha -R 'dot' --compilers js:babel-core/register --require ./test/test_helper.js './web/static/js/**/*_spec.@(js|jsx)'",
+    "test": "mocha -R 'spec' --compilers js:babel-core/register --require mocha-clean ./test/test_helper.js './web/static/js/**/*_spec.@(js|jsx)'",
     "test:help": "mocha --help",
     "test:reporters": "mocha --reporters",
     "test:watch": "npm run test -- --watch",
     "test:grep": "npm run test -- --grep",
-    "test:debug": "node-inspector & npm run test -- --debug-brk"
+    "test:debug": "npm run test -- --debug-brk"
   },
   "babel": {
     "presets": [
@@ -34,6 +34,7 @@
     "less": "^2.6.0",
     "normalizr": "^2.0.0",
     "react": "^0.14.7",
+    "react-addons-shallow-compare": "^0.14.7",
     "react-immutable-proptypes": "^1.6.0",
     "react-redux": "^4.4.0",
     "react-router": "^2.0.0-rc6",
@@ -63,10 +64,13 @@
     "file-loader": "^0.8.5",
     "imports-loader": "^0.6.5",
     "jsdom": "^8.0.2",
+    "jsonfile": "^2.2.3",
     "mocha": "^2.4.5",
+    "mocha-clean": "^1.0.0",
     "node-inspector": "^0.12.5",
     "node-libs-browser": "^1.0.0",
     "node-sass": "^3.4.2",
+    "react-addons-test-utils": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-tools": "^0.13.3",
     "redux-devtools": "^3.1.0",

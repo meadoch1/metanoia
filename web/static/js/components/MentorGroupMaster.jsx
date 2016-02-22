@@ -3,6 +3,10 @@ import MentorGroupDetail from './MentorGroupDetail';
 import { Link } from 'react-router';
 
 export default class MentorGroupMaster extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return !React.addons.shallowCompare(this, nextProps, nextState)
+  }
+
   render() {
     return (
       <div className="panel panel-default" >

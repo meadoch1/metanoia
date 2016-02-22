@@ -5,6 +5,10 @@ import {reduxForm} from 'redux-form';
 import { routeActions } from 'react-router-redux';
 
 class MentorGroupEdit extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return !React.addons.shallowCompare(this, nextProps, nextState)
+  }
+
   handleSubmit(data) {
     console.log('Submission received!', data);
 //    this.props.dispatch(initialize('email-group', {})); // clear form

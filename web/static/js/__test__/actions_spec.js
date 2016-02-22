@@ -1,38 +1,13 @@
-import {List, Map, fromJS} from 'immutable';
 import expect from 'expect';
-
 import {mapToState} from '../actions';
-import {initialState} from '../util/initialState';
 
-describe('mapToState', () => {
+describe('fetchState', () => {
 
-   it('transforms Server Json into State', () => {
-     const resultsFromServer = {"mentor_groups":[{"schedule_entries":[{"week_of_month":2,"mentor_group_id":1,"id":23,"day_of_week":4},{"week_of_month":4,"mentor_group_id":1,"id":24,"day_of_week":4}],"name":"Group 6","mentor_group_assignments":[{"volunteer_id":151,"volunteer":{"volunteer_status_id":2,"relationship_preference_id":null,"person_id":244,"person":{"work_phone":null,"suffix":null,"spouse_name":"Jane","phone":null,"pastor_id":null,"nickname":null,"mobile_phone":"423-111-2222","middle_name":null,"last_name":"Smith","id":244,"first_name":"Bill","email2":"billybob@gmail.com","email":null,"dob":null,"church_id":11,"address_id":141,"address":{"zip_code":null,"state_id":10,"state":{"name":"Georgia","id":10,"abbreviation":"GA"},"longitude":null,"line2":null,"line1":"2019 Smith Road","latitude":null,"id":141,"city":"Rossville","address_type_id":1,"address_type":{"name":"Home","id":1}}},"note":null,"mna_second_career":false,"id":151},"start_month":"2015-03-01","program_id":2,"program":{"name":"Mentor","id":2},"mentor_group_id":1,"id":120,"comments":null,"client_id":167,"client":{"tentative_parole_month":null,"person_id":415,"person":{"work_phone":null,"suffix":null,"spouse_name":null,"phone":null,"pastor_id":null,"nickname":null,"mobile_phone":null,"middle_name":null,"last_name":"Jones","id":415,"first_name":"Bob","email2":null,"email":null,"dob":null,"church_id":null,"address_id":null},"parole_status_id":null,"note":null,"max_possible_release_dt":"2020-02-17","id":167,"grader_address_text":null,"facility_ref_cd":"1111111111","facility_id":null,"facility_address_text":null,"earliest_out_dt":null,"client_status_id":null}},{"volunteer_id":152,"volunteer":{"volunteer_status_id":2,"relationship_preference_id":null,"person_id":245,"person":{"work_phone":null,"suffix":null,"spouse_name":"Cindy","phone":null,"pastor_id":null,"nickname":null,"mobile_phone":"423-333-4444","middle_name":null,"last_name":"Backa","id":245,"first_name":"Chewy","email2":null,"email":null,"dob":null,"church_id":11,"address_id":142,"address":{"zip_code":null,"state_id":42,"state":{"name":"Tennessee","id":42,"abbreviation":"TN"},"longitude":null,"line2":null,"line1":"7323 Smith Drive","latitude":null,"id":142,"city":"Chattanooga","address_type_id":1,"address_type":{"name":"Home","id":1}}},"note":null,"mna_second_career":false,"id":152},"start_month":"2015-03-01","program_id":2,"program":{"name":"Mentor","id":2},"mentor_group_id":1,"id":121,"comments":null,"client_id":119,"client":{"tentative_parole_month":null,"person_id":367,"person":{"work_phone":null,"suffix":null,"spouse_name":null,"phone":null,"pastor_id":null,"nickname":null,"mobile_phone":null,"middle_name":null,"last_name":"Carl","id":367,"first_name":"Chums","email2":null,"email":null,"dob":null,"church_id":null,"address_id":null},"parole_status_id":null,"note":null,"max_possible_release_dt":"2023-04-20","id":119,"grader_address_text":null,"facility_ref_cd":"222222222","facility_id":null,"facility_address_text":null,"earliest_out_dt":null,"client_status_id":null}}],"leader_id":null,"id":1,"facility_id":null}]};
-  //   // const resultsFromServer = {"clients": [
-  //   //   {"client_status_id": null, "earliest_out_dt": null, "facility_address_text": null, "facility_id": null, "facility_ref_cd": "1001014200", "grader_address_text": null, "id": 1, "max_possible_release_dt": "2022-08-01", "note": null, "parole_status_id": null, "person": {"address_id": null, "church_id": null, "dob": null, "email": null, "email2": null, "first_name": "John", "id": 3, "last_name": "Adams", "middle_name": null, "mobile_phone": null, "nickname": null, "pastor_id": null, "phone": null, "spouse_name": null, "suffix": null, "work_phone": null}, "person_id": 3, "tentative_parole_month": null},
-  //   //   {"client_status_id": null, "earliest_out_dt": null, "facility_address_text": null, "facility_id": null, "facility_ref_cd": "1242123", "grader_address_text": null, "id": 2, "max_possible_release_dt": "2025-12-06", "note": null, "parole_status_id": null, "person": {"address_id": null, "church_id": null, "dob": null, "email": null, "email2": null, "first_name": "Jimmy", "id": 4, "last_name": "Smith", "middle_name": null, "mobile_phone": null, "nickname": null, "pastor_id": null, "phone": null, "spouse_name": null, "suffix": null, "work_phone": null}, "person_id": 4, "tentative_parole_month": null}
-  //   // ],
-  //   //                       "group_assignments": [
-  //   //                         {"comments": null, "id": 1, "mentor_group_id": 1, "start_month": "2013-07-01", "volunteer_id": 1, "client_id": 1, "program_id": 2},
-  //   //                         {"comments": null, "id": 2, "mentor_group_id": 2, "start_month": "2014-11-01", "volunteer_id": 2, "client_id": 2, "program_id": 2}
-  //   //                       ],
-  //   //                       "mentor_groups": [
-  //   //                         {"facility_id": null, "id": 1, "leader_id": 1, "name": "Group 1"},
-  //   //                         {"facility_id": null, "id": 2, "leader_id": null, "name": "Group 2"}
-  //   //                       ],
-  //   //                       "schedules": [
-  //   //                         {"day_of_week": 1, "id": 13, "mentor_group_id": 1, "week_of_month": 1},
-  //   //                         {"day_of_week": 1, "id": 14, "mentor_group_id": 1, "week_of_month": 3},
-  //   //                         {"day_of_week": 3, "id": 15, "mentor_group_id": 2, "week_of_month": 1},
-  //   //                         {"day_of_week": 1, "id": 16, "mentor_group_id": 2, "week_of_month": 3},
-  //   //                       ],
-  //   //                       "volunteers": [
-  //   //                         {"id": 1, "mna_second_career": false, "note": null, "person": {"address": {"address_type": {"id": 1, "name": "Home"}, "address_type_id": 1, "city": "Chattanooga", "id": 127, "latitude": null, "line1": "127 Drive", "line2": null, "longitude": null, "state": {"abbreviation": "TN", "id": 42, "name": "Tennessee"}, "state_id": 42, "zip_code": null}, "address_id": 127, "church_id": 4, "dob": null, "email": null, "email2": null, "first_name": "Bill", "id": 1, "last_name": "Brimm", "middle_name": null, "mobile_phone": "423-254-5550", "nickname": null, "pastor_id": null, "phone": null, "spouse_name": "Diane", "suffix": null, "work_phone": "423-777-9999"}, "person_id": 1, "relationship_preference_id": null, "volunteer_status_id": 2},
-  //   //                         {"id": 2, "mna_second_career": false, "note": null, "person": {"address": {"address_type": {"id": 1, "name": "Home"}, "address_type_id": 1, "city": "Ringgold", "id": 128, "latitude": null, "line1": "128 Street", "line2": null, "longitude": null, "state": {"abbreviation": "GA", "id": 10, "name": "Georgia"}, "state_id": 10, "zip_code": null}, "address_id": 128, "church_id": 11, "dob": null, "email": null, "email2": null, "first_name": "Adam", "id": 2, "last_name": "Ant", "middle_name": null, "mobile_phone": null, "nickname": null, "pastor_id": null, "phone": null, "spouse_name": "Teri", "suffix": null, "work_phone": null}, "person_id": 2, "relationship_preference_id": null, "volunteer_status_id": 2}
-  //   //                       ]
-  //   //                      };
-     const newState = mapToState(resultsFromServer);
+   // it('transforms Server Json into State', () => {
+   //   const resultsFromServer = jsonfile.readFileSync("./test/fixtures/mentoring.json");
 
-     expect(newState).toEqual(initialState);
-   });
+   //   const newState = mapToState(resultsFromServer);
+
+   //   expect(newState).toEqual(initialMentoringState);
+   // });
 });

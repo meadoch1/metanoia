@@ -12,6 +12,10 @@ class EmailGroup extends Component {
     this.props.dispatch(routeActions.push('/mentoring'));
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return !React.addons.shallowCompare(this, nextProps, nextState)
+  }
+
   render() {
     const {fields: {subject, body}} = this.props;
 
