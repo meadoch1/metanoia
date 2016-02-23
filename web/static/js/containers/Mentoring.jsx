@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import { Map } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux'
@@ -16,24 +17,30 @@ export class Mentoring extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !React.addons.shallowCompare(this, nextProps, nextState)
+    return shallowCompare(this, nextProps, nextState)
   }
 
   render() {
     const entities = this.props.entities;
-    const mentor_groups = entities.get("mentor_groups", Map({})).valueSeq();
-    return (
-      <div className="row">
+    const mentor_groups_map = entities.get("mentor_groups");
+    if (mentor_groups_map == undefined) {
+      return <div />
+    } else { 
+      const mentor_groups = mentor_groups_map.valueSeq();
+      return (
+
+        <div className="row">
         <div id="groups-container" className="col-sm-9">
-          {mentor_groups.map( group =>
-            <MentorGroupMaster group={group} entities={entities} key={"group"+group.id} />
-           )}
+        {mentor_groups.map( group =>
+          <MentorGroupMaster group={group} entities={entities} key={"group"+group.get("id")} />
+        )}
         </div>
         <div className="col-sm-3">
           {this.props.children}
         </div>
-      </div>
-    )
+        </div>
+      )
+    }
   }
 }
 
@@ -48,7 +55,7 @@ Mentoring.propTypes = {
 };
 
 export const mapStateToProps = function(state) {
-  return state;
+  return {entities: state.root.get("entities", Map({}))};
   /* var groups = mapGroupsFromState(state.root);
      return {
      mentor_groups: groups

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { shallowCompare } from 'react-addons-shallow-compare';
+import shallowCompare from 'react-addons-shallow-compare';
 import MentorGroupDetail from './MentorGroupDetail';
 import { Link } from 'react-router';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -7,7 +7,7 @@ import {Map, List} from 'immutable';
 
 export default class MentorGroupMaster extends Component {
   shouldComponentUpdate(nextProps, nextState) {
-    return !React.addons.shallowCompare(this, nextProps, nextState)
+    return shallowCompare(this, nextProps, nextState)
   }
 
   render() {
@@ -35,7 +35,7 @@ export default class MentorGroupMaster extends Component {
           </thead>
           <tbody>
             {group.get("mentor_group_assignments").map((assignment_id, index) =>
-              <MentorGroupDetail entities={this.props.entities} group_assignment={this.props.entities.getIn(["group_assignments", assignment_id.toString()], Map({}))} leader_id={group.get("leader_id").toString()}/>
+              <MentorGroupDetail key={assignment_id} entities={this.props.entities} group_assignment={this.props.entities.getIn(["group_assignments", assignment_id.toString()], Map({}))} leader_id={group.get("leader_id")}/>
             )}
           </tbody>
         </table>

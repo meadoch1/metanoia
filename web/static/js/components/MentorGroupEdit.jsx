@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 import { connect } from 'react-redux'
 import {mapGroupFromState} from '../util/map_group';
 import {reduxForm} from 'redux-form';
@@ -6,7 +7,7 @@ import { routeActions } from 'react-router-redux';
 
 class MentorGroupEdit extends Component {
   shouldComponentUpdate(nextProps, nextState) {
-    return !React.addons.shallowCompare(this, nextProps, nextState)
+    return shallowCompare(this, nextProps, nextState)
   }
 
   handleSubmit(data) {

@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { shallowCompare } from 'react-addons-shallow-compare';
+import shallowCompare from 'react-addons-shallow-compare';
 import {nameFromPerson} from '../util/person_utils';
 
 export default class MentorGroupDetail extends Component {
   shouldComponentUpdate(nextProps, nextState) {
-    return !shallowCompare(this, nextProps, nextState)
+    return shallowCompare(this, nextProps, nextState);
   }
 
   mentorGroupAssignmentId() {

@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import shallowCompare from 'react-addons-shallow-compare';
 
 export default class MentorGroupSidebar extends Component {
   shouldComponentUpdate(nextProps, nextState) {
-    return !React.addons.shallowCompare(this, nextProps, nextState)
+    return shallowCompare(this, nextProps, nextState);
   }
 
   render() {
