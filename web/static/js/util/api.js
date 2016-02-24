@@ -49,7 +49,7 @@ export function mapMentorGroupsToState(json) {
   });
 
   const norm = normalize(json, {mentor_groups: arrayOf(mentor_group)});
-  return fromJS({entities: norm.entities});
+  return fromJS(norm.entities);
 }
 
 export function fetchMentorGroups() {

@@ -1,7 +1,8 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import rootReducer from './reducers/root';
+import entitiesReducer from './reducers/entities';
+import mentoringReducer from './reducers/mentoring';
 import {Map} from 'immutable';
 import { syncHistory, routeReducer } from 'react-router-redux';
 import { Router, Route, Link, hashHistory, IndexRoute } from 'react-router';
@@ -11,36 +12,27 @@ const loggerMiddleware = createLogger();
 const reduxRouterMiddleware = syncHistory(hashHistory);
 
 const reducer = combineReducers({
-  root: rootReducer,
+  entities: entitiesReducer,
+  mentoring: mentoringReducer,
   routing: routeReducer,
   form: formReducer
 });
 
-const createStoreWithMiddleware = applyMiddleware(
-  thunkMiddleware,
-  loggerMiddleware,
-  reduxRouterMiddleware
+const createStoreWithMiddleware = compose(
+  applyMiddleware(thunkMiddleware),
+  applyMiddleware(loggerMiddleware),
+  applyMiddleware(reduxRouterMiddleware),
+  typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
 )(createStore)
 
+// const createStoreWithMiddleware = applyMiddleware(
+//   thunkMiddleware,
+//   loggerMiddleware,
+//   reduxRouterMiddleware,
+// )(createStore)
 const store = createStoreWithMiddleware(reducer);
 
 reduxRouterMiddleware.listenForReplays(store)
-
-export const initialState = Map({
-  "entities": Map({
-    "states": Map({}),
-    "addresses": Map({}),
-    "group_assignments": Map({}),
-    "clients": Map({}),
-    "volunteers": Map({}),
-    "address_types": Map({}),
-    "programs": Map({}),
-    "facilities": Map({}),
-    "mentor_groups": Map({}),
-    "schedules": Map({}),
-    "persons": Map({})
-  })
-});
 
 export default function configureStore() {
   return store;

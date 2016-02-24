@@ -9,7 +9,6 @@ import { MentoringContainer } from './containers/Mentoring';
 import EmptySidebar from './components/EmptySidebar';
 import {EmailGroupContainer} from './components/EmailGroup';
 import {MentorGroupEditContainer} from './components/MentorGroupEdit';
-import {setState} from './actions';
 import configureStore from './configureStore';
 import { Router, Route, Link, hashHistory, IndexRoute } from 'react-router';
 import { App } from './containers/App';

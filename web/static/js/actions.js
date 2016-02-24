@@ -1,13 +1,11 @@
-import {fetchMentorGroups} from './util/api';
-
 /* action types */
 export const CREATE_MENTOR_GROUP_REPORT = 'CREATE_MENTOR_GROUP_REPORT';
 export const EDIT_MENTOR_GROUP = 'EDIT_MENTOR_GROUP';
-export const CREAGE_MESSAGE_FOR_MENTOR_GROUP = 'CREAGE_MESSAGE_FOR_MENTOR_GROUP';
+export const COMPOSE_MENTOR_GROUP_EMAIL = 'COMPOSE_MENTOR_GROUP_EMAIL';
 export const EDIT_MENTOR_RELATIONSHIP = 'EDIT_MENTOR_RELATIONSHIP';
-export const SET_STATE = 'SET_STATE';
-export const REQUEST_STATE = 'REQUEST_STATE';
-export const INVALID_STATE = 'INVALID_STATE';
+export const SET_MENTOR_GROUPS = 'SET_MENTOR_GROUPS';
+export const REQUEST_MENTOR_GROUPS = 'REQUEST_MENTOR_GROUPS';
+export const INVALID_MENTOR_GROUPS = 'INVALID_MENTOR_GROUPS';
 
 
 /* other constants */
@@ -15,41 +13,30 @@ export const INVALID_STATE = 'INVALID_STATE';
 export const ViewStates = {
   HIDDEN: 'HIDDEN',
   VIEW: 'VIEW',
-  EDIT: 'EDIT',
+  EDIT_MENTOR_GROUP: 'EDIT_MENTOR_GROUP',
+  EMAIL_MENTOR_GROUP: 'EMAIL_MENTOR_GROUP',
   NEW: 'NEW'
 }
 
 /* action creators */
 
-export function setState(state) {
-  return { type: SET_STATE, state: state}
+export function setMentorGroups(state) {
+  return { type: SET_MENTOR_GROUPS, state: state}
 }
 
-export function requestState() {
-  return {type: REQUEST_STATE }
-}
-
-export function createMentorGroupReport(id) {
-  return { type: CREATE_MENTOR_GROUP_REPORT, id }
+export function requestMentorGroups() {
+  return {type: REQUEST_MENTOR_GROUPS }
 }
 
 export function editMentorGroup(id) {
   return { type: EDIT_MENTOR_GROUP, id }
 }
 
-export function createMessageForMentorGroup(id) {
-  return { type: CREATE_MESSAGE_FOR_MENTOR_GROUP, id }
+export function composeMentorGroupEmail(id) {
+  return { type: COMPOSE_MENTOR_GROUP_EMAIL, id }
 }
 
 export function editMentorRelationship(id) {
   return {type: EDIT_MENTOR_RELATIONSHIP, id }
-}
-
-export function requestMentorGroups() {
-  return dispatch => {
-    dispatch(requestState());
-    return fetchMentorGroups()
-      .then(new_state => dispatch(setState(new_state)))
-  }
 }
 

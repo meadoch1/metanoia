@@ -16,7 +16,11 @@ export default class MentorGroupDetail extends Component {
     const entities = this.props.entities;
     const volunteer = entities.getIn(["volunteers", this.props.group_assignment.get("volunteer_id").toString()]);
     const mentor = entities.getIn(["persons", volunteer.get("person_id").toString()]);
-    return nameFromPerson(mentor);
+    var name =  nameFromPerson(mentor);
+    if (volunteer.get("id") == this.props.leader_id) {
+      name = <strong>{ name}</strong>;
+    }
+    return name;
   }
 
   client() {

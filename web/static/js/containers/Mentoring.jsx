@@ -4,20 +4,36 @@ import { Map } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux'
 import MentorGroupMaster from '../components/MentorGroupMaster'
-import MentorGroupSidebar from '../components/MentorGroupSidebar'
-import {requestMentorGroups} from '../actions'
+import MentorGroupEdit from '../components/MentorGroupEdit'
+import EmailGroup from '../components/EmailGroup'
+import EmptySidebar from '../components/EmptySidebar'
+import {ViewStates, requestMentorGroups, setMentorGroups, editMentorGroup, 
+        composeMentorGroupEmail} from '../actions'
 import {mapGroupsFromState} from '../util/map_group';
+import {fetchMentorGroups} from '../util/api';
 
 export class Mentoring extends React.Component {
-  componentDidMount() {
+  componentWillMount() {
     const { dispatch } = this.props;
     if (dispatch != undefined) {
       dispatch(requestMentorGroups());
+      fetchMentorGroups().then(new_state => dispatch(setMentorGroups(new_state)))
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState)
+  }
+
+  sidebarComponent() {
+    switch(this.props.mentoring.get("sidebar")) {
+      case ViewStates.EDIT_MENTOR_GROUP:
+        return <MentorGroupEdit entities={this.props.entities} data={this.props.mentoring.get("sidebar_data")} />;
+      case ViewStates.EMAIL_MENTOR_GROUP:
+        return <EmailGroup entities={this.props.entities} data={this.props.mentoring.get("sidebar_data")} />;
+      default:
+        return <EmptySidebar />;
+    }
   }
 
   render() {
@@ -32,11 +48,11 @@ export class Mentoring extends React.Component {
         <div className="row">
         <div id="groups-container" className="col-sm-9">
         {mentor_groups.map( group =>
-          <MentorGroupMaster group={group} entities={entities} key={"group"+group.get("id")} />
+          <MentorGroupMaster group={group} {...this.props} key={"group"+group.get("id")} />
         )}
         </div>
         <div className="col-sm-3">
-          {this.props.children}
+          {this.sidebarComponent()}
         </div>
         </div>
       )
@@ -51,14 +67,24 @@ Mentoring.propTypes = {
     clients: ImmutablePropTypes.map.isRequired,
     volunteers: ImmutablePropTypes.map.isRequired,
     group_assignments: ImmutablePropTypes.map.isRequired
-  }).isRequired
+  }).isRequired,
+  mentoring: ImmutablePropTypes.contains({
+    sidebar: PropTypes.string.isRequired,
+    sidebar_data: ImmutablePropTypes.map.isRequired
+  }).isRequired,
+  onEditMentorGroupClick: PropTypes.func.isRequired,
+  onEmailMentorGroupClick: PropTypes.func.isRequired
 };
 
-export const mapStateToProps = function(state) {
-  return {entities: state.root.get("entities", Map({}))};
-  /* var groups = mapGroupsFromState(state.root);
-     return {
-     mentor_groups: groups
-     }; */
+const mapStateToProps = function(state) {
+  return {entities: state.entities, mentoring: state.mentoring}
 }
-export const MentoringContainer =  connect(mapStateToProps)(Mentoring);
+const mapDispatchToProps = function(dispatch) {
+  return {
+    dispatch: dispatch,
+    onEditMentorGroupClick: function(id) { dispatch(editMentorGroup(id)) },
+    onEmailMentorGroupClick: function(id) { dispatch(composeMentorGroupEmail(id)) } 
+  }
+}
+
+export const MentoringContainer =  connect(mapStateToProps, mapDispatchToProps)(Mentoring);

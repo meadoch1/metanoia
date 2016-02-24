@@ -51,7 +51,6 @@ export function mapGroupFromState(group) {
 }
 
 export function mapGroupsFromState(state) {
-  console.log('in mapGroupsFromState');
   var group_map = state.getIn(["entities", "mentor_groups"], new Map([]));
   if (group_map.size == 0) {
     return [];
