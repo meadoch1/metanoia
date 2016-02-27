@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
+import {Panel, Table} from 'react-bootstrap'
 import MentorGroupDetail from './MentorGroupDetail';
 import Link from './Link';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import {Map, List} from 'immutable';
+import MentorGroupEdit from '../components/MentorGroupEdit'
+import {ViewStates} from '../actions'
 
 export default class MentorGroupMaster extends Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -38,21 +41,32 @@ export default class MentorGroupMaster extends Component {
     return day_name + "  Every " + weeks + " Week";
   }
 
+  shouldShowEditMentorGroup() {
+    return this.props.mentoring.get("sidebar") === ViewStates.EDIT_MENTOR_GROUP
+  }
+
+
   render() {
     const group = this.props.group;
-    return (
-      <div className="panel panel-default" >
-        <div className="panel-heading">
-          <h4 className="panel-title group-title"><strong>{group.get("name")} ({group.get("mentor_group_assignments").size})  </strong>
-            <small>{ this.title()}</small>
-            <div className='pull-right'>
-              <Link active={false} onClick={() => {this.props.onEmailMentorGroupClick(group.get("id"))}}><i className="fa fa-envelope" ></i></Link>
-                &nbsp;
-              <Link active={false} onClick={() => {this.props.onEditMentorGroupClick(group.get("id"))}}><i className="fa fa-edit" ></i></Link>
-            </div>
-          </h4>
+    const group_header = (
+      <h4 className="panel-title group-title"><strong>{group.get("name")} ({group.get("mentor_group_assignments").size})  </strong>
+        <small>{ this.title()}</small>
+        <div className='pull-right'>
+          <Link active={false} onClick={() => {this.props.onEmailMentorGroupClick(group.get("id"))}}><i className="fa fa-envelope" ></i></Link>
+          &nbsp;
+          <Link active={false} onClick={() => {this.props.editMentorGroupEvents.onClick(group.get("id"))}}><i className="fa fa-edit" ></i></Link>
         </div>
-        <table className="table table-hover table-condensed">
+      </h4>
+    )
+    return (
+      <div>
+        <MentorGroupEdit entities={this.props.entities}
+          show={this.shouldShowEditMentorGroup()}
+          data={this.props.mentoring.get("sidebar_data")}
+          events={this.props.editMentorGroupEvents}
+        />;
+      <Panel header={group_header}>
+        <Table fill hover condensed>
           <thead>
             <tr>
               <th>Mentor</th>
@@ -66,7 +80,8 @@ export default class MentorGroupMaster extends Component {
               <MentorGroupDetail key={assignment_id} entities={this.props.entities} group_assignment={this.props.entities.getIn(["group_assignments", assignment_id.toString()], Map({}))} leader_id={group.get("leader_id")}/>
             )}
           </tbody>
-        </table>
+        </Table>
+      </Panel>
       </div>
     )
   }
@@ -82,12 +97,20 @@ MentorGroupMaster.propTypes = {
     facility_id: PropTypes.number.isRequired,
     facility: PropTypes.number.isRequired
   }).isRequired,
+  mentoring: ImmutablePropTypes.contains({
+    sidebar: PropTypes.string.isRequired,
+    sidebar_data: ImmutablePropTypes.map.isRequired
+  }).isRequired,
   entities: ImmutablePropTypes.contains({
     persons: ImmutablePropTypes.map.isRequired,
     clients: ImmutablePropTypes.map.isRequired,
     volunteers: ImmutablePropTypes.map.isRequired,
     group_assignments: ImmutablePropTypes.map.isRequired
   }).isRequired,
-  onEditMentorGroupClick: PropTypes.func.isRequired,
+  editMentorGroupEvents: PropTypes.shape({
+    onClick: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    onSave:  PropTypes.func.isRequired
+  }).isRequired,
   onEmailMentorGroupClick: PropTypes.func.isRequired
 }

@@ -3,11 +3,12 @@ import shallowCompare from 'react-addons-shallow-compare';
 import { Map } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux'
+import {Row, Col} from 'react-bootstrap'
 import MentorGroupMaster from '../components/MentorGroupMaster'
-import MentorGroupEdit from '../components/MentorGroupEdit'
 import EmailGroup from '../components/EmailGroup'
 import EmptySidebar from '../components/EmptySidebar'
-import {ViewStates, requestMentorGroups, setMentorGroups, editMentorGroup, 
+import {ViewStates, requestMentorGroups, setMentorGroups,
+        editMentorGroup, cancelEditMentorGroup, setMentorGroupData,
         composeMentorGroupEmail} from '../actions'
 import {mapGroupsFromState} from '../util/map_group';
 import {fetchMentorGroups} from '../util/api';
@@ -44,17 +45,11 @@ export class Mentoring extends React.Component {
     } else { 
       const mentor_groups = mentor_groups_map.valueSeq();
       return (
-
-        <div className="row">
-        <div id="groups-container" className="col-sm-9">
-        {mentor_groups.map( group =>
-          <MentorGroupMaster group={group} {...this.props} key={"group"+group.get("id")} />
-        )}
-        </div>
-        <div className="col-sm-3">
-          {this.sidebarComponent()}
-        </div>
-        </div>
+        <Row>
+          {mentor_groups.map( group =>
+            <MentorGroupMaster group={group} {...this.props} key={"group"+group.get("id")} />
+           )}
+        </Row>
       )
     }
   }
@@ -72,7 +67,11 @@ Mentoring.propTypes = {
     sidebar: PropTypes.string.isRequired,
     sidebar_data: ImmutablePropTypes.map.isRequired
   }).isRequired,
-  onEditMentorGroupClick: PropTypes.func.isRequired,
+  editMentorGroupEvents: PropTypes.shape({
+    onClick: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    onSave:  PropTypes.func.isRequired
+  }).isRequired,
   onEmailMentorGroupClick: PropTypes.func.isRequired
 };
 
@@ -82,8 +81,12 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = function(dispatch) {
   return {
     dispatch: dispatch,
-    onEditMentorGroupClick: function(id) { dispatch(editMentorGroup(id)) },
-    onEmailMentorGroupClick: function(id) { dispatch(composeMentorGroupEmail(id)) } 
+    editMentorGroupEvents: {
+      onClick: function(id) { dispatch(editMentorGroup(id))},
+      onCancel: function() {dispatch(cancelEditMentorGroup())},
+      onSave:  function(data) {dispatch(setMentorGroupData(data))}
+    },
+    onEmailMentorGroupClick: function(id) { dispatch(composeMentorGroupEmail(id)) }
   }
 }
 

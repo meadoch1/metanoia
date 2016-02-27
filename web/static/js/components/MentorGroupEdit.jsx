@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import { connect } from 'react-redux'
+import {Modal, Input, ButtonInput} from 'react-bootstrap'
 import {mapGroupFromState} from '../util/map_group';
 import {reduxForm} from 'redux-form';
 import { routeActions } from 'react-router-redux';
@@ -14,31 +15,32 @@ class MentorGroupEdit extends Component {
     console.log('Submission received!', data);
 //    this.props.dispatch(initialize('email-group', {})); // clear form
     data.preventDefault();
-    this.props.dispatch(routeActions.push('/mentoring'));
+    this.props.events.onSave(data);
   }
 
+  closeModal() {
+    this.props.events.onCancel();
+  }
 
   render() {
     const {fields: {name, leader_id, facility_id }} = this.props;
     var selectOptions = (this.props.assignments == undefined) ? [] : this.props.assignments.map(assignment => Object({id: assignment.mentor_id, label: assignment.mentor_name}));
 
     return (
-      <div className="well mentoring-sidebar">
-        <h4>Mentor Group</h4>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <div>
-            <label>Name</label>
-            <input type="text" placeholder="Name" {...name}/>
-          </div>
-          <div>
-            <label>Leader</label>
-            <select {...leader_id}>
-              {selectOptions.map(val => <option key={val.id} value={val.id}>{val.label}</option>)}
-            </select>
-          </div>
-          <button type="submit" onClick={this.handleSubmit.bind(this)}>Send Email</button>
-        </form>
-      </div>
+        <Modal show={this.props.show} onHide={this.closeModal.bind(this)} >
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Group</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form onSubmit={this.handleSubmit.bind(this)}>
+              <Input type="text" label="Name" placeholder="Name" {...name}/>
+              <Input type="select" label="Leader" {...leader_id}>
+                {selectOptions.map(val => <option key={val.id} value={val.id}>{val.label}</option>)}
+              </Input>
+              <ButtonInput type="submit" value="Send Email" onClick={this.handleSubmit.bind(this)} />
+            </form>
+          </Modal.Body>
+        </Modal>
     )
   }
 }
