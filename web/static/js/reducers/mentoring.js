@@ -5,8 +5,10 @@ import {
 } from '../actions';
 
 
-function setEditMentorGroup(state, id) {
-  const newState = Map({ sidebar: ViewStates.EDIT_MENTOR_GROUP, sidebar_data: Map({ id: id})})
+function setEditMentorGroup(state, group) {
+  const newState = Map({ sidebar: ViewStates.EDIT_MENTOR_GROUP,
+                         sidebar_data: Map({...group
+                         })})
   return state.merge(newState);
 }
 
@@ -36,7 +38,7 @@ function mentoring(state = initialState, action) {
   case EDIT_MENTOR_GROUP:
     return setEditMentorGroup(state, action.id);
   case COMPOSE_MENTOR_GROUP_EMAIL:
-    return setComposeMentorGroupEmail(state, action.id);
+    return setComposeMentorGroupEmail(state, action.group);
   case CANCEL_EDIT_MENTOR_GROUP:
     return cancelEditMentorGroup(state);
   case SET_MENTOR_GROUP_DATA:

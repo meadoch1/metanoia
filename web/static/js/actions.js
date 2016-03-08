@@ -30,8 +30,8 @@ export function requestMentorGroups() {
   return {type: REQUEST_MENTOR_GROUPS }
 }
 
-export function editMentorGroup(id) {
-  return { type: EDIT_MENTOR_GROUP, id }
+export function editMentorGroup(group) {
+  return { type: EDIT_MENTOR_GROUP, group }
 }
 
 export function cancelEditMentorGroup(id) {
