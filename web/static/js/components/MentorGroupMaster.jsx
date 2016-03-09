@@ -52,6 +52,8 @@ export default class MentorGroupMaster extends Component {
       <h4 className="panel-title group-title"><strong>{group.get("name")} ({group.get("mentor_group_assignments").size})  </strong>
         <small>{ this.title()}</small>
         <div className='pull-right'>
+          <Link active={false} onClick={() => {this.props.onMentorGroupReportClick(group.get("id"))}}><i className="fa fa-file-o" ></i></Link>
+          &nbsp;
           <Link active={false} onClick={() => {this.props.onEmailMentorGroupClick(group.get("id"))}}><i className="fa fa-envelope" ></i></Link>
           &nbsp;
           <Link active={false} onClick={() => {this.props.editMentorGroupEvents.onClick(group.get("id"))}}><i className="fa fa-edit" ></i></Link>
@@ -112,5 +114,6 @@ MentorGroupMaster.propTypes = {
     onCancel: PropTypes.func.isRequired,
     onSave:  PropTypes.func.isRequired
   }).isRequired,
-  onEmailMentorGroupClick: PropTypes.func.isRequired
+  onEmailMentorGroupClick: PropTypes.func.isRequired,
+  onMentorGroupReportClick: PropTypes.func.isRequired
 }

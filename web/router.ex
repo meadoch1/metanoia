@@ -24,6 +24,13 @@ defmodule Metanoia.Router do
     pipe_through :api
     resources "/mentoring", MentoringController, except: [:new, :edit]
 
+    resources "/mentor_group_reports", MentorGroupReportController
+    resources "/mentor_group_report_details", MentorGroupReportDetailController
+
+    resources "/mentor_groups", MentorGroupController, except: [:new, :edit] do
+      resources "/reports", MentorGroupReportController
+    end
+
     resources "/addresses", AddressController, except: [:new, :edit]
     resources "/address_types", AddressTypeController, except: [:new, :edit]
     resources "/churches", ChurchController, except: [:new, :edit]
@@ -39,7 +46,6 @@ defmodule Metanoia.Router do
     resources "/genders", GenderController, except: [:new, :edit]
     resources "/jurisdictions", JurisdictionController, except: [:new, :edit]
     resources "/lessons", LessonController, except: [:new, :edit]
-    resources "/mentor_groups", MentorGroupController, except: [:new, :edit]
     resources "/mentor_group_assignments", MentorGroupAssignmentController, except: [:new, :edit]
     resources "/parole_status", ParoleStatusController, except: [:new, :edit]
     resources "/pastors", PastorController, except: [:new, :edit]

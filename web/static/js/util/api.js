@@ -52,9 +52,32 @@ export function mapMentorGroupsToState(json) {
   return fromJS(norm.entities);
 }
 
+export function mapMentorGroupReportToState(json) {
+  const mentor_group_report = new Schema('mentor_group_reports');
+  const mentor_group_report_detail = new Schema('mentor_group_report_details');
+  const mentor_group_assignment = new Schema('mentor_group_assignments');
+
+  mentor_group_report.define({
+    mentor_group_report_details: arrayOf(mentor_group_report_detail)
+  });
+
+  mentor_group_report_detail.define({
+    mentor_group_report: mentor_group_report,
+    mentor_group_assignment: mentor_group_assignment
+  });
+
+  const norm = normalize(json, {mentor_group_reports: arrayOf(mentor_group_report)});
+  return fromJS(norm.entities);
+}
+
 export function fetchMentorGroups() {
   return fetch(`api/mentoring`)
     .then(req => req.json())
     .then(json => mapMentorGroupsToState(json))
 }
 
+export function fetchLastMentorGroupReport(id) {
+  return fetch('api/mentor_groups/' + id + '/reports?latest=1')
+    .then(req => req.json())
+    .then(json => mapMentorGroupReportToState(json))
+}

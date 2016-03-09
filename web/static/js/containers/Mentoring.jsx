@@ -9,9 +9,9 @@ import EmailGroup from '../components/EmailGroup'
 import EmptySidebar from '../components/EmptySidebar'
 import {ViewStates, requestMentorGroups, setMentorGroups,
         editMentorGroup, cancelEditMentorGroup, setMentorGroupData,
-        composeMentorGroupEmail} from '../actions'
+        composeMentorGroupEmail, getLastMentorGroupReport} from '../actions'
 import {mapGroupsFromState} from '../util/map_group';
-import {fetchMentorGroups} from '../util/api';
+import {fetchMentorGroups, fetchLastMentorGroupReport} from '../util/api';
 
 export class Mentoring extends React.Component {
   componentWillMount() {
@@ -26,6 +26,14 @@ export class Mentoring extends React.Component {
     return shallowCompare(this, nextProps, nextState)
   }
 
+  getReport(mentor_group_id) {
+    const { dispatch } = this.props;
+    if (dispatch != undefined) {
+      dispatch(this.props.onMentorGroupReportClick(mentor_group_id));
+      // struggling with where this should go.  Need to read up on dispatching api calls with redux
+      fetchLastMentorGroupReport(mentor_group_id).then(new_state => dispatch(setMentorGroupReport(new_state)));
+    }
+  }
   sidebarComponent() {
     switch(this.props.mentoring.get("sidebar")) {
       case ViewStates.EDIT_MENTOR_GROUP:
@@ -72,7 +80,8 @@ Mentoring.propTypes = {
     onCancel: PropTypes.func.isRequired,
     onSave:  PropTypes.func.isRequired
   }).isRequired,
-  onEmailMentorGroupClick: PropTypes.func.isRequired
+  onEmailMentorGroupClick: PropTypes.func.isRequired,
+  onMentorGroupReportClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = function(state) {
@@ -86,7 +95,8 @@ const mapDispatchToProps = function(dispatch) {
       onCancel: function() {dispatch(cancelEditMentorGroup())},
       onSave:  function(data) {dispatch(setMentorGroupData(data))}
     },
-    onEmailMentorGroupClick: function(id) { dispatch(composeMentorGroupEmail(id)) }
+    onEmailMentorGroupClick: function(id) { dispatch(composeMentorGroupEmail(id)) },
+    onMentorGroupReportClick: function(id) { dispatch(getLastMentorGroupReport(id)) }
   }
 }
 

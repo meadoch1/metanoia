@@ -20,6 +20,7 @@ defmodule Metanoia.MentorGroupView do
     |> render_relations( :schedule_entries, mentor_group.schedule_entries, Metanoia.ScheduleEntryView, "schedule_entry.json")
     |> render_relations( :mentor_group_assignments, mentor_group.mentor_group_assignments, Metanoia.MentorGroupAssignmentView, "mentor_group_assignment.json")
   end
+
   def render("mentor_group_with_info.json", %{mentor_group: mentor_group}) do
     %{id: mentor_group.id,
       name: mentor_group.name,

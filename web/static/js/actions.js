@@ -8,6 +8,8 @@ export const EDIT_MENTOR_RELATIONSHIP = 'EDIT_MENTOR_RELATIONSHIP';
 export const SET_MENTOR_GROUPS = 'SET_MENTOR_GROUPS';
 export const REQUEST_MENTOR_GROUPS = 'REQUEST_MENTOR_GROUPS';
 export const INVALID_MENTOR_GROUPS = 'INVALID_MENTOR_GROUPS';
+export const REQUEST_LAST_MENTOR_GROUP_REPORT = 'REQUEST_LAST_MENTOR_GROUP_REPORT';
+export const SET_MENTOR_GROUP_REPORT = 'SET_MENTOR_GROUP_REPORT';
 
 
 /* other constants */
@@ -48,4 +50,12 @@ export function composeMentorGroupEmail(id) {
 
 export function editMentorRelationship(id) {
   return {type: EDIT_MENTOR_RELATIONSHIP, id }
+}
+
+export function getLastMentorGroupReport(id) {
+  return {type: REQUEST_LAST_MENTOR_GROUP_REPORT, id }
+}
+
+export function setMentorGroupReport(data) {
+  return {type: SET_MENTOR_GROUP_REPORT, data }
 }

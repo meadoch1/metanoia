@@ -23,6 +23,13 @@ defmodule Metanoia.ScheduleEntry do
     |> cast(params, @required_fields, @optional_fields)
   end
 
+  def for_group(query, mentor_group_id) do
+    from q in query,
+    where: q.mentor_group_id == ^mentor_group_id,
+    order_by: [q.week_of_month, q.day_of_week],
+    select: q
+  end
+
   def day_name(day_of_week) do
     case day_of_week do
       0 -> "Sunday"
