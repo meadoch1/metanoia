@@ -6,11 +6,16 @@ import {
 } from '../actions';
 
 function requestMentorGroupReport(state, mentor_group_id) {
-  return state;
+  const newState = Map({ sidebar: ViewStates.LOADING, sidebar_data: Map({ id: mentor_group_id})})
+  return state.merge(newState);
 }
 
 function receiveMentorGroupReport(state, data) {
-  return state;
+  const newState = Map({ sidebar: ViewStates.MENTOR_GROUP_REPORT,
+                         sidebar_data: Map({
+                           mentor_group_report_id: data.get("mentor_group_reports").keySeq().first()
+                         })})
+  return state.merge(newState);
 }
 
 function setEditMentorGroup(state, group) {

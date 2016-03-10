@@ -72,8 +72,12 @@ Mentoring.propTypes = {
     onCancel: PropTypes.func.isRequired,
     onSave:  PropTypes.func.isRequired
   }).isRequired,
-  onEmailMentorGroupClick: PropTypes.func.isRequired,
-  onMentorGroupReportClick: PropTypes.func.isRequired
+  mentorGroupReportEvents: PropTypes.shape({
+    onClick: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    onSave:  PropTypes.func.isRequired
+  }).isRequired,
+  onEmailMentorGroupClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = function(state) {
@@ -85,10 +89,14 @@ const mapDispatchToProps = function(dispatch) {
     editMentorGroupEvents: {
       onClick: function(id) { dispatch(editMentorGroup(id))},
       onCancel: function() {dispatch(cancelEditMentorGroup())},
+      onSave: function() {dispatch(cancelEditMentorGroup())}
+    },
+    mentorGroupReportEvents: {
+      onClick: function(id) { dispatch(fetchLastMentorGroupReport(id)) },
+      onCancel: function() {dispatch(cancelEditMentorGroup())},
       onSave:  function(data) {dispatch(setMentorGroupData(data))}
     },
-    onEmailMentorGroupClick: function(id) { dispatch(composeMentorGroupEmail(id)) },
-    onMentorGroupReportClick: function(id) { dispatch(fetchLastMentorGroupReport(id)) }
+    onEmailMentorGroupClick: function(id) { dispatch(composeMentorGroupEmail(id)) }
   }
 }
 
