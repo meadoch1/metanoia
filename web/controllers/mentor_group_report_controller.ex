@@ -13,13 +13,17 @@ defmodule Metanoia.MentorGroupReportController do
 
     mentor_group_reports = case Repo.all(query) do
       [] ->
-        changeset = MentorGroupReport.changeset(%MentorGroupReport{},
-                                                %{
-                                                  "mentor_group_id" => mentor_group_id,
-                                                  "meeting_dt" => last_date
-                                                })
-        {:ok, mentor_group_report} = Repo.insert(changeset)
-        [mentor_group_report]
+        {:ok, reports} = Repo.transaction fn ->
+          changeset = MentorGroupReport.changeset(%MentorGroupReport{},
+                                                  %{
+                                                    "mentor_group_id" => mentor_group_id,
+                                                    "meeting_dt" => last_date
+                                                  })
+          {:ok, mentor_group_report} = Repo.insert(changeset)
+          Metanoia.MentorGroupReportDetail.populate_default_details(mentor_group_report);
+          Repo.all(query)
+        end
+        reports
       [h|t] ->
         [h|t]
     end

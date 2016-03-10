@@ -23,4 +23,18 @@ defmodule Metanoia.MentorGroupReportDetail do
     model
     |> cast(params, @required_fields, @optional_fields)
   end
+
+  def populate_default_details(mentor_group_report) do
+    query = from g in Metanoia.MentorGroup, preload: [:mentor_group_assignments]
+    mentor_group = Metanoia.Repo.get!(query, mentor_group_report.mentor_group_id)
+    mentor_group.mentor_group_assignments
+    |> Enum.each(
+      fn(mentor_group_assignment) -> insert_default_details(mentor_group_report, mentor_group_assignment.id) end
+    )
+  end
+
+  defp insert_default_details(mentor_group_report, mentor_group_assignment_id) do
+    Ecto.build_assoc(mentor_group_report, :mentor_group_report_details, mentor_group_assignment_id: mentor_group_assignment_id)
+    |> Metanoia.Repo.insert!
+  end
 end

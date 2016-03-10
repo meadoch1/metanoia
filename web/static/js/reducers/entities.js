@@ -1,7 +1,8 @@
 import {List, Map, fromJS} from 'immutable';
 import {
   SET_MENTOR_GROUPS,
-  SET_MENTOR_GROUP_REPORT
+  SET_MENTOR_GROUP_REPORT,
+  RECEIVE_MENTOR_GROUP_REPORT,
 } from '../actions';
 
 
@@ -31,6 +32,8 @@ function entities(state = initialState, action) {
     return setState(state, action.state);
   case SET_MENTOR_GROUP_REPORT:
     return setState(state, action.state);
+  case RECEIVE_MENTOR_GROUP_REPORT:
+    return setState(state, action.data);
   default:
     return state;
   }

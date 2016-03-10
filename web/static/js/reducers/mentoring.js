@@ -1,13 +1,15 @@
 import {List, Map, fromJS} from 'immutable';
 import {
   CANCEL_EDIT_MENTOR_GROUP, EDIT_MENTOR_GROUP, SET_MENTOR_GROUP_DATA,
-  COMPOSE_MENTOR_GROUP_EMAIL, REQUEST_LAST_MENTOR_GROUP_REPORT, SET_MENTOR_GROUP_REPORT,
+  COMPOSE_MENTOR_GROUP_EMAIL, REQUEST_MENTOR_GROUP_REPORT, RECEIVE_MENTOR_GROUP_REPORT,
   ViewStates
 } from '../actions';
-import {fetchLastMentorGroupReport} from '../util/api';
 
-function getLastMentorGroupReport(state, mentor_group_id) {
-  fetchLastMentorGroupReport(mentor_group_id).then(new_state => dispatch(setMentorGroupReport(new_state)));
+function requestMentorGroupReport(state, mentor_group_id) {
+  return state;
+}
+
+function receiveMentorGroupReport(state, data) {
   return state;
 }
 
@@ -49,10 +51,10 @@ function mentoring(state = initialState, action) {
     return cancelEditMentorGroup(state);
   case SET_MENTOR_GROUP_DATA:
     return setMentorGroupData(state, action.data);
-  case REQUEST_LAST_MENTOR_GROUP_REPORT:
-    return getLastMentorGroupReport(state, action.id);
-  case SET_MENTOR_GROUP_REPORT:
-    return setMentorGroupReport(state, action.data)
+  case REQUEST_MENTOR_GROUP_REPORT:
+    return requestMentorGroupReport(state, action.id);
+  case RECEIVE_MENTOR_GROUP_REPORT:
+    return receiveMentorGroupReport(state, action.data);
   default:
     return state;
   }

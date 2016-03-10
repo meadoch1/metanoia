@@ -76,7 +76,7 @@ export function fetchMentorGroups() {
     .then(json => mapMentorGroupsToState(json))
 }
 
-export function fetchLastMentorGroupReport(id) {
+export function getLastMentorGroupReport(id) {
   return fetch('api/mentor_groups/' + id + '/reports?latest=1')
     .then(req => req.json())
     .then(json => mapMentorGroupReportToState(json))
