@@ -9,6 +9,7 @@ import EmailGroup from '../components/EmailGroup'
 import EmptySidebar from '../components/EmptySidebar'
 import {ViewStates, requestMentorGroups, setMentorGroups,
         editMentorGroup, cancelEditMentorGroup, setMentorGroupData, fetchLastMentorGroupReport,
+        pushMentorGroupReportDetail,
         composeMentorGroupEmail} from '../actions'
 import {mapGroupsFromState} from '../util/map_group';
 import {fetchMentorGroups} from '../util/api';
@@ -75,7 +76,8 @@ Mentoring.propTypes = {
   mentorGroupReportEvents: PropTypes.shape({
     onClick: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
-    onSave:  PropTypes.func.isRequired
+    onSave:  PropTypes.func.isRequired,
+    onDetailSave: PropTypes.func.isRequired
   }).isRequired,
   onEmailMentorGroupClick: PropTypes.func.isRequired
 };
@@ -94,7 +96,8 @@ const mapDispatchToProps = function(dispatch) {
     mentorGroupReportEvents: {
       onClick: function(id) { dispatch(fetchLastMentorGroupReport(id)) },
       onCancel: function() {dispatch(cancelEditMentorGroup())},
-      onSave:  function(data) {dispatch(setMentorGroupData(data))}
+      onSave:  function(data) {dispatch(setMentorGroupData(data))},
+      onDetailSave: function(data) {dispatch(pushMentorGroupReportDetail(data))}
     },
     onEmailMentorGroupClick: function(id) { dispatch(composeMentorGroupEmail(id)) }
   }

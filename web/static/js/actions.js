@@ -1,4 +1,4 @@
-import {getLastMentorGroupReport} from './util/api';
+import {getLastMentorGroupReport, updateMentorGroupReportDetail} from './util/api';
 
 /* action types */
 export const CREATE_MENTOR_GROUP_REPORT = 'CREATE_MENTOR_GROUP_REPORT';
@@ -12,7 +12,8 @@ export const REQUEST_MENTOR_GROUPS = 'REQUEST_MENTOR_GROUPS';
 export const INVALID_MENTOR_GROUPS = 'INVALID_MENTOR_GROUPS';
 export const REQUEST_MENTOR_GROUP_REPORT = 'REQUEST_MENTOR_GROUP_REPORT';
 export const RECEIVE_MENTOR_GROUP_REPORT = 'RECEIVE_MENTOR_GROUP_REPORT';
-
+export const UPDATED_MENTOR_GROUP_REPORT_DETAIL = 'UPDATED_MENTOR_GROUP_REPORT_DETAIL';
+export const UPDATING_MENTOR_GROUP_REPORT_DETAIL = 'UPDATING_MENTOR_GROUP_REPORT_DETAIL';
 
 /* other constants */
 
@@ -66,19 +67,24 @@ export function receiveMentorGroupReport(data) {
 
 export function fetchLastMentorGroupReport(id) {
   return function (dispatch) {
-
-    // First dispatch: the app state is updated to inform
-    // that the API call is starting.
-
     dispatch(requestMentorGroupReport(id))
-
-    // The function called by the thunk middleware can return a value,
-    // that is passed on as the return value of the dispatch method.
-
-    // In this case, we return a promise to wait for.
-    // This is not required by thunk middleware, but it is convenient for us.
-
     return getLastMentorGroupReport(id).then(new_state => dispatch(receiveMentorGroupReport(new_state)));
   }
 }
+
+export function updatingMentorGroupReportDetail(id) {
+  return {type: UPDATING_MENTOR_GROUP_REPORT_DETAIL, id}
+}
+
+export function updatedMentorGroupReportDetail(data) {
+  console.log("DETAIL: " + data)
+  return {type: UPDATED_MENTOR_GROUP_REPORT_DETAIL, data}
+}
+
+export function pushMentorGroupReportDetail(data) {
+  return function (dispatch) {
+    dispatch(updatingMentorGroupReportDetail(data.get("id")));
+    return updateMentorGroupReportDetail(data).then( new_state => dispatch(updatedMentorGroupReportDetail(new_state)));
+  }
+} 
 

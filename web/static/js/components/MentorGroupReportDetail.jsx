@@ -2,19 +2,29 @@ import React, { Component, PropTypes } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import shallowCompare from 'react-addons-shallow-compare';
 import {nameFromPerson} from '../util/person_utils';
+import ReportStatus from './ReportStatus'
 
 export default class MentorGroupReportDetail extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState);
   }
 
+  mentorGroupReportDetailId() {
+    return this.props.mentor_group_report_detail.get("id").toString();
+  }
+
   mentorGroupAssignmentId() {
-    return this.props.group_assignment.get("id").toString();
+    return this.props.mentor_group_report_detail.get("mentor_group_assignment_id").toString();
+  }
+
+  mentorGroupAssignment() {
+    return this.props.entities.getIn(["group_assignments", this.mentorGroupAssignmentId()]);
   }
 
   mentorName() {
     const entities = this.props.entities;
-    const volunteer = entities.getIn(["volunteers", this.props.group_assignment.get("volunteer_id").toString()]);
+    const assignment = this.mentorGroupAssignment();
+    const volunteer = entities.getIn(["volunteers", assignment.get("volunteer_id").toString()]);
     const mentor = entities.getIn(["persons", volunteer.get("person_id").toString()]);
     var name =  nameFromPerson(mentor);
     return name;
@@ -22,41 +32,50 @@ export default class MentorGroupReportDetail extends Component {
 
   client() {
     return this.props.entities.getIn(
-      ["clients", this.props.group_assignment.get("client_id").toString()]);
+      ["clients", this.mentorGroupAssignment().get("client_id").toString()]);
   }
   menteeName() {
     const mentee = this.props.entities.getIn(["persons", this.client().get("person_id").toString()], "");
     return nameFromPerson(mentee);
   }
 
+  handleReportStatusChange(id, newStatus) {
+    console.log("newStatus: " + newStatus);
+    this.props.onSave(this.props.mentor_group_report_detail.merge({status: newStatus}));
+  }
+
   render() {
+    const id = this.mentorGroupReportDetailId();
     return (
-      <tr className='group-report-detail-row' data-assignment-id={this.mentorGroupAssignmentId()} >
+      <tr className='group-report-detail-row' data-assignment-id={id} >
         <td >{this.mentorName()}</td>
         <td >{this.menteeName()}</td>
-        <td >foo</td>
+        <td ><ReportStatus
+               value={this.props.mentor_group_report_detail.get("status", "")}
+               mentor_group_report_detail_id={id}
+               onChange={this.handleReportStatusChange.bind(this)}
+             />
+        </td>
+        <td >{this.props.mentor_group_report_detail.get("note", "")}</td>
       </tr>
     )
   }
 }
 
 MentorGroupReportDetail.propTypes = {
-  group_assignment: ImmutablePropTypes.contains({
-    start_month: PropTypes.string.isRequired,
-    program: PropTypes.number.isRequired,
-    volunteer: PropTypes.number.isRequired,
-    client: PropTypes.number.isRequired,
-    volunteer_id: PropTypes.number.isRequired,
-    client_id: PropTypes.number.isRequired,
-    comments: PropTypes.string.isRequired,
-    program_id: PropTypes.number.isRequired,
-    mentor_group_id: PropTypes.number.isRequired,
+  mentor_group_report_detail: ImmutablePropTypes.contains({
+    mentor_group_assignment_id: PropTypes.number.isRequired,
+    mentor_group_report_id: PropTypes.number.isRequired,
+    status: PropTypes.string,
+    note: PropTypes.string,
     id: PropTypes.number.isRequired
   }).isRequired,
-  status: PropTypes.string.isRequired,
   entities: ImmutablePropTypes.contains({
+    mentor_group_reports: ImmutablePropTypes.map.isRequired,
+    group_assignments: ImmutablePropTypes.map.isRequired,
     persons: ImmutablePropTypes.map.isRequired,
     clients: ImmutablePropTypes.map.isRequired,
     volunteers: ImmutablePropTypes.map.isRequired
-  }).isRequired
+  }).isRequired,
+  onSave: PropTypes.func.isRequired
 }

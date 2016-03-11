@@ -52,6 +52,12 @@ export function mapMentorGroupsToState(json) {
   return fromJS(norm.entities);
 }
 
+export function fetchMentorGroups() {
+  return fetch(`api/mentoring`)
+    .then(req => req.json())
+    .then(json => mapMentorGroupsToState(json))
+}
+
 export function mapMentorGroupReportToState(json) {
   const mentor_group_report = new Schema('mentor_group_reports');
   const mentor_group_report_detail = new Schema('mentor_group_report_details');
@@ -70,14 +76,33 @@ export function mapMentorGroupReportToState(json) {
   return fromJS(norm.entities);
 }
 
-export function fetchMentorGroups() {
-  return fetch(`api/mentoring`)
-    .then(req => req.json())
-    .then(json => mapMentorGroupsToState(json))
-}
-
 export function getLastMentorGroupReport(id) {
   return fetch('api/mentor_groups/' + id + '/reports?latest=1')
     .then(req => req.json())
     .then(json => mapMentorGroupReportToState(json))
+}
+
+export function mapMentorGroupReportDetailToState(json) {
+  const mentor_group_report_detail = new Schema('mentor_group_report_details');
+  const norm = normalize(json, {mentor_group_report_details: arrayOf(mentor_group_report_detail)});
+  console.log("norm entities: " + norm.entities);
+  return fromJS(norm.entities);
+}
+
+export function updateMentorGroupReportDetail(data) {
+  const id = data.get("id");
+  return fetch('api/mentor_group_report_details/' + id, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      mentor_group_report_detail: {
+        note: data.get("note"),
+        status: data.get("status")
+      }
+    })
+  }).then(response => ({"mentor_group_report_details":[data.toJS()]}))
+    .then( json => mapMentorGroupReportDetailToState(json))
 }

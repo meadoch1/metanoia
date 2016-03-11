@@ -3,11 +3,16 @@ import {
   SET_MENTOR_GROUPS,
   SET_MENTOR_GROUP_REPORT,
   RECEIVE_MENTOR_GROUP_REPORT,
+  UPDATED_MENTOR_GROUP_REPORT_DETAIL
 } from '../actions';
 
 
 function setState(state, newState) {
   return state.merge(newState);
+}
+
+function updateMentorGroupReportDetail(state, newState) {
+  return state.mergeDeep(newState);
 }
 
 const initialState = Map({
@@ -34,6 +39,8 @@ function entities(state = initialState, action) {
     return setState(state, action.state);
   case RECEIVE_MENTOR_GROUP_REPORT:
     return setState(state, action.data);
+  case UPDATED_MENTOR_GROUP_REPORT_DETAIL:
+    return updateMentorGroupReportDetail(state, action.data);
   default:
     return state;
   }

@@ -126,7 +126,8 @@ MentorGroupMaster.propTypes = {
   mentorGroupReportEvents: PropTypes.shape({
     onClick: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
-    onSave:  PropTypes.func.isRequired
+    onSave:  PropTypes.func.isRequired,
+    onDetailSave: PropTypes.func.isRequired
   }).isRequired,
   onEmailMentorGroupClick: PropTypes.func.isRequired
 }
