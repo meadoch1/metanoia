@@ -14,6 +14,7 @@ export const REQUEST_MENTOR_GROUP_REPORT = 'REQUEST_MENTOR_GROUP_REPORT';
 export const RECEIVE_MENTOR_GROUP_REPORT = 'RECEIVE_MENTOR_GROUP_REPORT';
 export const UPDATED_MENTOR_GROUP_REPORT_DETAIL = 'UPDATED_MENTOR_GROUP_REPORT_DETAIL';
 export const UPDATING_MENTOR_GROUP_REPORT_DETAIL = 'UPDATING_MENTOR_GROUP_REPORT_DETAIL';
+export const CACHE_MENTOR_GROUP_REPORT_DETAIL_UPDATE = 'CACHE_MENTOR_GROUP_REPORT_DETAIL_UPDATE';
 
 /* other constants */
 
@@ -86,5 +87,9 @@ export function pushMentorGroupReportDetail(data) {
     dispatch(updatingMentorGroupReportDetail(data.get("id")));
     return updateMentorGroupReportDetail(data).then( new_state => dispatch(updatedMentorGroupReportDetail(new_state)));
   }
+} 
+
+export function cacheMentorGroupReportDetailUpdate(data) {
+  return {type: CACHE_MENTOR_GROUP_REPORT_DETAIL_UPDATE, data}
 } 
 

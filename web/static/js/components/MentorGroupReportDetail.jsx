@@ -40,7 +40,6 @@ export default class MentorGroupReportDetail extends Component {
   }
 
   handleReportStatusChange(id, newStatus) {
-    console.log("newStatus: " + newStatus);
     this.props.onSave(this.props.mentor_group_report_detail.merge({status: newStatus}));
   }
 

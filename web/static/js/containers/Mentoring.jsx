@@ -9,7 +9,7 @@ import EmailGroup from '../components/EmailGroup'
 import EmptySidebar from '../components/EmptySidebar'
 import {ViewStates, requestMentorGroups, setMentorGroups,
         editMentorGroup, cancelEditMentorGroup, setMentorGroupData, fetchLastMentorGroupReport,
-        pushMentorGroupReportDetail,
+        pushMentorGroupReportDetail, cacheMentorGroupReportDetailUpdate,
         composeMentorGroupEmail} from '../actions'
 import {mapGroupsFromState} from '../util/map_group';
 import {fetchMentorGroups} from '../util/api';
@@ -97,7 +97,7 @@ const mapDispatchToProps = function(dispatch) {
       onClick: function(id) { dispatch(fetchLastMentorGroupReport(id)) },
       onCancel: function() {dispatch(cancelEditMentorGroup())},
       onSave:  function(data) {dispatch(setMentorGroupData(data))},
-      onDetailSave: function(data) {dispatch(pushMentorGroupReportDetail(data))}
+      onDetailSave: function(data) {dispatch(cacheMentorGroupReportDetailUpdate(data))}
     },
     onEmailMentorGroupClick: function(id) { dispatch(composeMentorGroupEmail(id)) }
   }

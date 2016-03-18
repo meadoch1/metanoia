@@ -57,7 +57,7 @@ export default class MentorGroupReport extends Component {
               <MentorGroupReportDetail
                 key={id}
                 entities={this.props.entities}
-                mentor_group_report_detail={this.props.entities.getIn(["mentor_group_report_details", id.toString()], Map({}))}
+                mentor_group_report_detail={this.props.data.getIn(["details", id.toString()], Map({}))}
                 onSave={this.props.events.onDetailSave}
               />
             )}
